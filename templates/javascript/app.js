@@ -1,31 +1,18 @@
 'use strict';
 
-angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) { %>
-  .config(function ($routeProvider, $locationProvider<% if (mongoPassportUser) { %>, $httpProvider<% } %>) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'partials/main',
-        controller: 'MainCtrl'
-      })<% if (mongoPassportUser) { %>
-      .when('/login', {
-        templateUrl: 'partials/login',
-        controller: 'LoginCtrl'
-      })
-      .when('/signup', {
-        templateUrl: 'partials/signup',
-        controller: 'SignupCtrl'
-      })
-      .when('/settings', {
-        templateUrl: 'partials/settings',
-        controller: 'SettingsCtrl',
-        authenticate: true
-      })<% } %>
-      .otherwise({
-        redirectTo: '/'
-      });
-      
-    $locationProvider.html5Mode(true);<% if (mongoPassportUser) { %>
-      
+angular.module('<%= scriptAppName %>', [<%= angularModules %>])
+<% if (ngRoute) { %>
+  .config(['formRoutesProvider' <% if (mongoPassportUser) { %>, $httpProvider<% } %>,
+  function (formRoutes <% if (mongoPassportUser) { %>, $httpProvider<% }  %>) {
+    formRoutes.setRoutes([
+      {route: '/index', options: {templateUrl: 'partials/main', controller: 'MainCtrl'}},
+      {route: '/404', options: {templateUrl: 'partials/404.html'}}<% if (mongoPassportUser) { %>,
+      {route: '/login', options: {templateUrl: 'partials/login', controller: 'LoginCtrl'}},
+      {route: '/signup', options: {templateUrl: 'partials/signup', controller: 'SignupCtrl'}},
+      {route: '/settings', options: {templateUrl: 'partials/settings', controller: 'SettingsCtrl', authenticate: true}}<% } %>
+    ], '/index');
+
+    <% if (mongoPassportUser) { %>
     // Intercept 401s and redirect you to login
     $httpProvider.interceptors.push(['$q', '$location', function($q, $location) {
       return {
@@ -50,4 +37,9 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])<% if (ngRoute) {
         $location.path('/login');
       }
     });<% } %>
-  })<% } %>;
+  }])<% } %>;
+
+formsAngular.config(['urlServiceProvider', 'cssFrameworkServiceProvider', function (urlService, cssFrameworkService) {
+  urlService.setOptions({html5Mode: true});
+  cssFrameworkService.setOptions({framework: 'bs3'});
+}]);

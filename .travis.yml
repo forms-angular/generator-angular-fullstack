@@ -4,5 +4,5 @@ node_js:
   - '0.8'
 before_install:
   - currentfolder=${PWD##*/}
-  - if [ "$currentfolder" != 'generator-angular-fullstack' ]; then cd .. && eval "mv $currentfolder generator-angular-fullstack" && cd generator-angular-fullstack; fi
+  - if [ "$currentfolder" != 'generator-fng' ]; then cd .. && eval "mv $currentfolder generator-fng" && cd generator-fng; fi
 

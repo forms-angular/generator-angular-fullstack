@@ -1,9 +1,10 @@
 'use strict';
 
-var express = require('express')<% if (mongo) { %>,
+var express = require('express'),
     path = require('path'),
     fs = require('fs'),
-    mongoose = require('mongoose')<% } %>;
+    mongoose = require('mongoose'),
+    formsAngular = require('forms-angular');
 
 /**
  * Main application file
@@ -12,7 +13,7 @@ var express = require('express')<% if (mongo) { %>,
 // Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-var config = require('./lib/config/config');<% if (mongo) { %>
+var config = require('./lib/config/config');
 var db = mongoose.connect(config.mongo.uri, config.mongo.options);
 
 // Bootstrap models
@@ -24,7 +25,7 @@ fs.readdirSync(modelsPath).forEach(function (file) {
 });
 
 // Populate empty DB with sample data
-require('./lib/config/dummydata');<% } %><% if(mongoPassportUser) { %>
+require('./lib/config/dummydata');<% if(mongoPassportUser) { %>
 
 // Passport Configuration
 var passport = require('./lib/config/passport');<% } %>
@@ -32,6 +33,19 @@ var passport = require('./lib/config/passport');<% } %>
 // Setup Express
 var app = express();
 require('./lib/config/express')(app);
+
+var Schema = mongoose.Schema;
+
+var ApplicantSchema = new Schema({
+    surname: {type:String, required:true, index:true},
+    forename: {type:String, index:true}
+});
+
+var Applicant = mongoose.model('Applicant', ApplicantSchema);
+
+var DataFormHandler = new (formsAngular)(app);
+DataFormHandler.addResource('applicant', Applicant);   // Create and add more schemas to taste
+
 require('./lib/routes')(app);
 
 // Start server

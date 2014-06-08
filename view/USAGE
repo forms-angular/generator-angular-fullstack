@@ -2,7 +2,7 @@ Description:
     Creates a new AngularJS view
 
 Example:
-    yo angular-fullstack:view thing
+    yo fng:view thing
 
     This will create:
         app/views/thing.html

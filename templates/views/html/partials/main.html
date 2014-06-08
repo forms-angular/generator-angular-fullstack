@@ -1,19 +1,11 @@
-<div ng-include="'partials/navbar'"></div>
-
 <div class="jumbotron">
   <h1>'Allo, 'Allo<% if(mongoPassportUser) { %> <span ng-show="currentUser">{{ currentUser.name }}</span><% } %>!</h1>
   <p class="lead">
     <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
+    Always a pleasure scaffolding your apps.<br />
+    Speaking of apps, I have taken the liberty of creating a database of applicants for the under-butler position and adding it to the menu above.
   </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!</a></p>
-</div>
-
-<div class="row marketing">
-  <div ng-repeat="thing in awesomeThings">
-      <h4>{{thing.name}}</h4>
-      <p>{{thing.info}}</p>
-  </div>
+  <p><a class="btn btn-lg btn-success" ng-href="#">{{ message }}!</a></p>
 </div>
 
 <div class="footer">

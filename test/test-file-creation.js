@@ -38,7 +38,7 @@ describe('Angular generator', function () {
         }
         done(err);
       }
-      angular = helpers.createGenerator('angular-fullstack:app', deps);
+      angular = helpers.createGenerator('fng:app', deps);
       angular.options['skip-install'] = true;
       done();
     });
@@ -148,7 +148,7 @@ describe('Angular generator', function () {
     var angularGenerator;
     var name = 'foo';
     var deps = [path.join('../..', generatorType)];
-    angularGenerator = helpers.createGenerator('angular-fullstack:' + generatorType, deps, [name]);
+    angularGenerator = helpers.createGenerator('fng:' + generatorType, deps, [name]);
 
     helpers.mockPrompt(angular, {
       compass: true,
@@ -224,7 +224,7 @@ describe('Angular generator', function () {
     it.skip('should generate a new view', function (done) {
       var angularView;
       var deps = ['../../view'];
-      angularView = helpers.createGenerator('angular-fullstack:view', deps, ['foo']);
+      angularView = helpers.createGenerator('fng:view', deps, ['foo']);
 
       helpers.mockPrompt(angular, {
         compass: true,
@@ -246,7 +246,7 @@ describe('Angular generator', function () {
     it.skip('should generate a new view in subdirectories', function (done) {
       var angularView;
       var deps = ['../../view'];
-      angularView = helpers.createGenerator('angular-fullstack:view', deps, ['foo/bar']);
+      angularView = helpers.createGenerator('fng:view', deps, ['foo/bar']);
 
       helpers.mockPrompt(angular, {
         compass: true,

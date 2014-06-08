@@ -1,11 +1,47 @@
-<div class="header" ng-controller="NavbarCtrl">
-  <ul class="nav nav-pills pull-right">
-    <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
-        <a ng-href="{{item.link}}">{{item.title}}</a>
-    </li><% if(mongoPassportUser) { %>
-    <li ng-hide="currentUser" ng-class="{active: isActive('/login')}"><a href="/login">Login</a></li>
-    <li ng-hide="currentUser" ng-class="{active: isActive('/signup')}"><a href="/signup">Sign up</a></li>
-    <li ng-show="currentUser" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a></li><% } %>
-  </ul>
-  <h3 class="text-muted"><%= appname %></h3>
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid" ng-cloak>
+            <button type="button" class="navbar-toggle btn btn-navbar" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="glyphicon glyphicon-bar icon-bar"></span>
+                <span class="glyphicon glyphicon-bar icon-bar"></span>
+                <span class="glyphicon glyphicon-bar icon-bar"></span>
+            </button>
+            <div class="pull-left">
+                <a class="navbar-brandpluslogo brandpluslogo" ng-href="{{buildUrl('index')}}">
+                    <h3 class="text-muted"><%= appname %></h3>
+                </a>
+            </div>
+            <div class="visible-lg visible-desktop pull-right col-md-1 span1"></div>
+            <global-search class="global-search"></global-search>
+            <div class="navbar-collapse collapse nav-collapse">
+                <ul class="nav navbar-nav">
+
+                    <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
+                        <a ng-href="{{item.link}}">{{item.title}}</a>
+                    </li>
+                    <li class="dropdown"><a class="dropdown-toggle">Applicants</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-option" ng-href="{{buildUrl('applicant/new')}}">New Applicant</a></li>
+                            <li><a class="dropdown-option" ng-href="{{buildUrl('applicant')}}">List Applicants</a></li>
+                        </ul>
+                    </li>
+
+                    <% if(mongoPassportUser) { %>
+                    <li ng-hide="currentUser" ng-class="{active: isActive('/login')}"><a href="/login">Login</a></li>
+                    <li ng-hide="currentUser" ng-class="{active: isActive('/signup')}"><a href="/signup">Sign up</a></li>
+                    <li ng-show="currentUser" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a></li><% } %>
+                    <li ng-show="items.length > 0" class="dropdown">
+                        <a class="dropdown-toggle">
+                            {{contextMenu}}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="choice in items">
+                                <a class="dropdown-option" ng-hide="isHidden($index)" ng-href="{{choice.url}}" ng-click="doClick($index)">{{choice.text}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>

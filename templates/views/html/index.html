@@ -14,21 +14,23 @@
     <!-- build:css(app) styles/vendor.css -->
     <!-- bower:css -->
     <!-- endbower -->
+    <link rel="stylesheet" href="bower_components/forms-angular/css/forms-angular-bs3.css" />
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="<%= scriptAppName %>">
+  <body ng-app="<%= scriptAppName %>" ng-controller="NavCtrl" ng-keyup="globalShortcuts($event)">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
+    <div ng-include="'partials/navbar'"></div>
 
     <!-- Add your site or application content here -->
     <% if (ngRoute) {
-      %><div class="container" ng-view></div><%
+      %><div class="container-fluid" ng-view></div><%
     } else {
-      %><div class="container" ng-include="'partials/main'" ng-controller="MainCtrl"></div><%
+      %><div class="container-fluid" ng-include="'partials/main'" ng-controller="MainCtrl"></div><%
     } %>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

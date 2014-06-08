@@ -70,15 +70,15 @@ var Generator = module.exports = function Generator(args, options) {
     this.env.options.jade = this.options.jade;
   }
 
-  this.hookFor('angular-fullstack:common', {
+  this.hookFor('fng:common', {
     args: args
   });
 
-  this.hookFor('angular-fullstack:main', {
+  this.hookFor('fng:main', {
     args: args
   });
 
-  this.hookFor('angular-fullstack:controller', {
+  this.hookFor('fng:controller', {
     args: args
   });
 
@@ -88,22 +88,10 @@ var Generator = module.exports = function Generator(args, options) {
       callback: this._injectDependencies.bind(this)
     });
 
-    var enabledComponents = [];
+    var enabledComponents = ['angular-sanitize/angular-sanitize.js','angular-route/angular-route.js'];
 
-    if (this.resourceModule) {
-      enabledComponents.push('angular-resource/angular-resource.js');
-    }
-
-    if (this.cookiesModule) {
+    if (this.mongoPassportUser) {
       enabledComponents.push('angular-cookies/angular-cookies.js');
-    }
-
-    if (this.sanitizeModule) {
-      enabledComponents.push('angular-sanitize/angular-sanitize.js');
-    }
-
-    if (this.routeModule) {
-      enabledComponents.push('angular-route/angular-route.js');
     }
 
     this.invoke('karma:app', {
@@ -128,10 +116,28 @@ util.inherits(Generator, yeoman.generators.Base);
 
 Generator.prototype.welcome = function welcome() {
   // welcome message
+  this.bootstrap = true;
+  this.compass = false;
+  this.compassBootstrap = false;
+  this.ngRoute = true;
+  this.jade = false;
+  this.routeModule = true;
+  this.mongo = true;
+  this.mongoPassportUser = false;
+
+  var angMods = ["'formsAngular'"];
+
+  if (this.routeModule) {
+//    angMods.push("'ngRoute'");
+    this.env.options.ngRoute = true;
+  }
+
+  this.env.options.angularDeps = "\n  " + angMods.join(",\n  ") +"\n";
+
   if (!this.options['skip-welcome-message']) {
     console.log(this.yeoman);
     console.log(
-      'Out of the box I include Bootstrap and some AngularJS recommended modules.\n'
+      'Out of the box I include Bootstrap, Mongoose and some AngularJS recommended modules.\n'
     );
 
     // Deprecation notice for minsafe
@@ -145,127 +151,21 @@ Generator.prototype.welcome = function welcome() {
   }
 };
 
-Generator.prototype.askForCompass = function askForCompass() {
-  var cb = this.async();
-
-  this.prompt([{
-    type: 'confirm',
-    name: 'compass',
-    message: 'Would you like to use Sass (with Compass)?',
-    default: true
-  }], function (props) {
-    this.compass = props.compass;
-
-    cb();
-  }.bind(this));
-};
-
-Generator.prototype.askForBootstrap = function askForBootstrap() {
-  var compass = this.compass;
-  var cb = this.async();
-
-  this.prompt([{
-    type: 'confirm',
-    name: 'bootstrap',
-    message: 'Would you like to include Twitter Bootstrap?',
-    default: true
-  }, {
-    type: 'confirm',
-    name: 'compassBootstrap',
-    message: 'Would you like to use the Sass version of Twitter Bootstrap?',
-    default: true,
-    when: function (props) {
-      return props.bootstrap && compass;
-    }
-  }], function (props) {
-    this.bootstrap = props.bootstrap;
-    this.compassBootstrap = props.compassBootstrap;
-
-    cb();
-  }.bind(this));
-};
-
-Generator.prototype.askForModules = function askForModules() {
-  var cb = this.async();
-
-  var prompts = [{
-    type: 'checkbox',
-    name: 'modules',
-    message: 'Which modules would you like to include?',
-    choices: [{
-      value: 'resourceModule',
-      name: 'angular-resource.js',
-      checked: true
-    }, {
-      value: 'cookiesModule',
-      name: 'angular-cookies.js',
-      checked: true
-    }, {
-      value: 'sanitizeModule',
-      name: 'angular-sanitize.js',
-      checked: true
-    }, {
-      value: 'routeModule',
-      name: 'angular-route.js',
-      checked: true
-    }]
-  }];
-
-  this.prompt(prompts, function (props) {
-    var hasMod = function (mod) { return props.modules.indexOf(mod) !== -1; };
-    this.resourceModule = hasMod('resourceModule');
-    this.cookiesModule = hasMod('cookiesModule');
-    this.sanitizeModule = hasMod('sanitizeModule');
-    this.routeModule = hasMod('routeModule');
-
-    var angMods = [];
-
-    if (this.cookiesModule) {
-      angMods.push("'ngCookies'");
-    }
-
-    if (this.resourceModule) {
-      angMods.push("'ngResource'");
-    }
-    if (this.sanitizeModule) {
-      angMods.push("'ngSanitize'");
-    }
-    if (this.routeModule) {
-      angMods.push("'ngRoute'");
-      this.env.options.ngRoute = true;
-    }
-
-    if (angMods.length) {
-      this.env.options.angularDeps = "\n  " + angMods.join(",\n  ") +"\n";
-    }
-
-    cb();
-  }.bind(this));
-};
-
-Generator.prototype.askForMongo = function askForMongo() {
-  var cb = this.async();
-
-  this.prompt([{
-    type: 'confirm',
-    name: 'mongo',
-    message: 'Would you like to include MongoDB with Mongoose?',
-    default: false
-  }, {
-    type: 'confirm',
-    name: 'mongoPassportUser',
-    message: 'Would you like to include a Passport authentication boilerplate?',
-    default: false,
-    when: function (props) {
-      return props.mongo;
-    }
-  }], function (props) {
-    this.mongo = props.mongo;
-    this.mongoPassportUser = props.mongoPassportUser;
-
-    cb();
-  }.bind(this));
-};
+//Generator.prototype.askForMongo = function askForMongo() {
+//  var cb = this.async();
+//
+//  this.prompt([{
+//    type: 'confirm',
+//    name: 'mongoPassportUser',
+//    message: 'Would you like to include a Passport authentication boilerplate?',
+//    default: false
+//  }], function (props) {
+//    this.mongo = props.mongo = true;
+//    this.mongoPassportUser = props.mongoPassportUser;
+//
+//    cb();
+//  }.bind(this));
+//};
 
 Generator.prototype.readIndex = function readIndex() {
   this.ngRoute = this.env.options.ngRoute;
@@ -417,13 +317,15 @@ Generator.prototype.addJadeViews = function addHtmlJade() {
 Generator.prototype.addHtmlViews = function addHtmlViews() {
   if(!this.jade) {
     this.copy('../../templates/views/html/partials/main.html', 'app/views/partials/main.html');
+    this.copy('../../templates/views/html/partials/base-edit.html', 'app/views/partials/base-edit.html');
+    this.copy('../../templates/views/html/partials/base-list.html', 'app/views/partials/base-list.html');
     this.copy('../../templates/views/html/partials/navbar.html', 'app/views/partials/navbar.html');
     if(this.mongoPassportUser) {
       this.copy('../../templates/views/html/partials/login.html', 'app/views/partials/login.html');
       this.copy('../../templates/views/html/partials/signup.html', 'app/views/partials/signup.html');
       this.copy('../../templates/views/html/partials/settings.html', 'app/views/partials/settings.html');
     }
-    this.copy('../../templates/views/html/404.html', 'app/views/404.html');
+    this.copy('../../templates/views/html/partials/404.html', 'app/views/partials/404.html');
   }
 };
 

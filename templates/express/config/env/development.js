@@ -3,6 +3,6 @@
 module.exports = {
   env: 'development'<% if (mongo) { %>,
   mongo: {
-    uri: 'mongodb://localhost/fullstack-dev'
+    uri: 'mongodb://localhost/fng-dev'
   }<% } %>
 };
