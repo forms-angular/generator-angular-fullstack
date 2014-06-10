@@ -178,13 +178,13 @@ Generator.prototype.askForPlugins = function askForPlugins() {
       jQueryUI: true,
       checked: true
     }
-//      ,{
-//      name: 'Columnar reporting',
-//      value: 'reports',
-//      dep: '"ngGrid"',
-//      jQueryUI: false,
-//      checked: true
-//    }
+      ,{
+      name: 'Columnar reporting',
+      value: 'reports',
+      dep: '"ngGrid"',
+      jQueryUI: false,
+      checked: true
+    }
 //      ,{
 //      name: 'Fully featured text / HTML editor',
 //      value: 'ckedit',
@@ -380,6 +380,9 @@ Generator.prototype.addHtmlViews = function addHtmlViews() {
     this.copy('../../templates/views/html/partials/main.html', 'app/views/partials/main.html');
     this.copy('../../templates/views/html/partials/base-edit.html', 'app/views/partials/base-edit.html');
     this.copy('../../templates/views/html/partials/base-list.html', 'app/views/partials/base-list.html');
+    if (this.reports) {
+      this.copy('../../templates/views/html/partials/base-analysis.html', 'app/views/partials/base-analysis.html');
+    }
     this.copy('../../templates/views/html/partials/navbar.html', 'app/views/partials/navbar.html');
     if(this.mongoPassportUser) {
       this.copy('../../templates/views/html/partials/login.html', 'app/views/partials/login.html');

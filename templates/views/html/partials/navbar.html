@@ -21,8 +21,11 @@
                     </li>
                     <li class="dropdown"><a class="dropdown-toggle">Applicants</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-option" ng-href="{{buildUrl('applicant/new')}}">New Applicant</a></li>
-                            <li><a class="dropdown-option" ng-href="{{buildUrl('applicant')}}">List Applicants</a></li>
+                            <li><a class="dropdown-option" ng-href="{{buildUrl('applicant/new')}}">New</a></li>
+                            <li><a class="dropdown-option" ng-href="{{buildUrl('applicant')}}">Listing</a></li>
+                            <% if(reports) { %>
+                            <li><a class="dropdown-option" ng-href="{{buildUrl('analyse/applicant')}}">Basic Report</a></li>
+                            <% } %>
                         </ul>
                     </li>
 
