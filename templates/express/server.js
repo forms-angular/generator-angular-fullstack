@@ -39,8 +39,8 @@ var Schema = mongoose.Schema;
 var ApplicantSchema = new Schema({
     surname: {type:String, required:true, index:true},
     forename: {type:String, index:true}<% if(uiDate) { %>,
-    dateOfBirth: {type:Date}
-<% } %>
+    dateOfBirth: {type:Date}<% } %><% if(ckeditor) { %>,
+    whyApplied: {type: String, form: {type: 'textarea', editor: 'ckEditor'}}<% } %>
 });
 
 var Applicant = mongoose.model('Applicant', ApplicantSchema);

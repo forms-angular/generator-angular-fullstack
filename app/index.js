@@ -177,21 +177,20 @@ Generator.prototype.askForPlugins = function askForPlugins() {
       dep: '"ui.date"',
       jQueryUI: true,
       checked: true
-    }
-      ,{
+    },{
       name: 'Columnar reporting',
       value: 'reports',
       dep: '"ngGrid"',
       jQueryUI: false,
       checked: true
+    },{
+      name: 'Fully featured text / HTML editor',
+      value: 'ckeditor',
+      dep: '"ngCkeditor"',
+      jQueryUI: true,
+      checked: true
     }
 //      ,{
-//      name: 'Fully featured text / HTML editor',
-//      value: 'ckedit',
-//      dep: '"ngCkeditor"',
-//      jQueryUI: true,
-//      checked: true
-//    },{
 //      name: 'File uploader',
 //      value: 'upload',
 //      dep: '"uploadModule"',
