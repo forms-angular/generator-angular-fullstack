@@ -121,18 +121,15 @@ Generator.prototype.welcome = function welcome() {
   this.compassBootstrap = false;
   this.ngRoute = true;
   this.jade = false;
-  this.routeModule = true;
   this.mongo = true;
   this.mongoPassportUser = false;
+  this.jQueryUI = false;
+  this.reports = false;
 
-  var angMods = ["'formsAngular'"];
-
+  this.routeModule = true;       // we will have choice between ngRoute and ui-router
   if (this.routeModule) {
-//    angMods.push("'ngRoute'");
     this.env.options.ngRoute = true;
   }
-
-  this.env.options.angularDeps = "\n  " + angMods.join(",\n  ") +"\n";
 
   if (!this.options['skip-welcome-message']) {
     console.log(this.yeoman);
@@ -166,6 +163,70 @@ Generator.prototype.welcome = function welcome() {
 //    cb();
 //  }.bind(this));
 //};
+
+Generator.prototype.askForPlugins = function askForPlugins() {
+  var cb = this.async();
+
+  var prompts = [{
+    type: 'checkbox',
+    name: 'plugins',
+    message: 'Which plugins would you like to include?',
+    choices: [{
+      name: 'jQuery UI date picker',
+      value: 'uiDate',
+      dep: '"ui.date"',
+      jQueryUI: true,
+      checked: true
+    }
+//      ,{
+//      name: 'Columnar reporting',
+//      value: 'reports',
+//      dep: '"ngGrid"',
+//      jQueryUI: false,
+//      checked: true
+//    }
+//      ,{
+//      name: 'Fully featured text / HTML editor',
+//      value: 'ckedit',
+//      dep: '"ngCkeditor"',
+//      jQueryUI: true,
+//      checked: true
+//    },{
+//      name: 'File uploader',
+//      value: 'upload',
+//      dep: '"uploadModule"',
+//      jQueryUI: false,
+//      checked: true
+//    },{
+//      name: 'Enhanced select control',
+//      value: 'reports',
+//      dep: '"ui.select2"',
+//      jQueryUI: true,
+//      checked: true
+//    }
+    ]
+  }];
+
+  this.prompt(prompts, function (props) {
+
+    var angMods = ["'formsAngular'"];
+
+    for (var i=0; i < prompts[0].choices.length; i++) {
+      var mod = prompts[0].choices[i].value;
+      this[mod] = props.plugins.indexOf(mod) !== -1;
+      if (this[mod]) {
+        angMods.push(prompts[0].choices[i].dep);
+        if (prompts[0].choices[i].jQueryUI) {
+          this.jQueryUI = this.env.options.jQueryUI = true;
+        }
+      }
+    }
+    this.env.options.angularDeps = "\n  " + angMods.join(",\n  ") +"\n";
+    cb();
+  }.bind(this));
+};
+
+
 
 Generator.prototype.readIndex = function readIndex() {
   this.ngRoute = this.env.options.ngRoute;

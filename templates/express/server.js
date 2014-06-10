@@ -38,7 +38,9 @@ var Schema = mongoose.Schema;
 
 var ApplicantSchema = new Schema({
     surname: {type:String, required:true, index:true},
-    forename: {type:String, index:true}
+    forename: {type:String, index:true}<% if(uiDate) { %>,
+    dateOfBirth: {type:Date}
+<% } %>
 });
 
 var Applicant = mongoose.model('Applicant', ApplicantSchema);

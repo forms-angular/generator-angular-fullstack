@@ -13,6 +13,7 @@ util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createAppFile = function createAppFile() {
   this.angularModules = this.env.options.angularDeps;
+  this.jQueryUI = this.env.options.jQueryUI;
   this.mongo = this.env.options.mongo;
   this.mongoPassportUser = this.env.options.mongoPassportUser;
   this.ngRoute = this.env.options.ngRoute;
