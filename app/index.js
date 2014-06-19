@@ -189,18 +189,18 @@ Generator.prototype.askForPlugins = function askForPlugins() {
       dep: '"ngCkeditor"',
       jQueryUI: true,
       checked: true
+    },{
+      name: 'Enhanced select control',
+      value: 'select2',
+      dep: '"ui.select2"',
+      jQueryUI: false,
+      checked: true
     }
 //      ,{
 //      name: 'File uploader',
-//      value: 'upload',
+//      value: 'jqUpload',
 //      dep: '"uploadModule"',
 //      jQueryUI: false,
-//      checked: true
-//    },{
-//      name: 'Enhanced select control',
-//      value: 'reports',
-//      dep: '"ui.select2"',
-//      jQueryUI: true,
 //      checked: true
 //    }
     ]
