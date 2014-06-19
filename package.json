@@ -1,7 +1,7 @@
 {
   "name": "generator-fng",
   "version": "0.0.0",
-  "description": "Yeoman generator for creating forms-angular applications, using MongoDB, Express, AngularJS, and Node",
+  "description": "Generate forms-angular applications for the MEAN stack",
   "keywords": [
     "yeoman-generator",
     "mean",
