@@ -460,6 +460,7 @@ Generator.prototype.mongoFiles = function () {
 
   this.template('../../templates/express/config/dummydata.js', 'lib/config/dummydata.js');
   this.template('../../templates/express/models/thing.js', 'lib/models/thing.js');
+  this.template('../../templates/express/fng-models/applicant.js', 'lib/fng-models/applicant.js');
 
   if(!this.mongoPassportUser) {
     return;  // Skip if disabled.
