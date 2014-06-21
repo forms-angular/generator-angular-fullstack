@@ -125,6 +125,7 @@ Generator.prototype.welcome = function welcome() {
   this.mongoPassportUser = false;
   this.jQueryUI = false;
   this.reports = false;
+  this.jqUpload = false;
 
   this.routeModule = true;       // we will have choice between ngRoute and ui-router
   if (this.routeModule) {
