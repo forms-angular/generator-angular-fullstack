@@ -175,25 +175,25 @@ Generator.prototype.askForPlugins = function askForPlugins() {
     choices: [{
       name: 'jQuery UI date picker',
       value: 'uiDate',
-      dep: '"ui.date"',
+      dep: '\'ui.date\'',
       jQueryUI: true,
       checked: true
     },{
       name: 'Columnar reporting',
       value: 'reports',
-      dep: '"ngGrid"',
+      dep: '\'ngGrid\'',
       jQueryUI: false,
       checked: true
     },{
       name: 'Fully featured text / HTML editor',
       value: 'ckeditor',
-      dep: '"ngCkeditor"',
+      dep: '\'ngCkeditor\'',
       jQueryUI: true,
       checked: true
     },{
       name: 'Enhanced select control',
       value: 'select2',
-      dep: '"ui.select2"',
+      dep: '\'ui.select2\'',
       jQueryUI: false,
       checked: true
     }
@@ -209,7 +209,7 @@ Generator.prototype.askForPlugins = function askForPlugins() {
 
   this.prompt(prompts, function (props) {
 
-    var angMods = ["'formsAngular'"];
+    var angMods = ['\'formsAngular\''];
 
     for (var i=0; i < prompts[0].choices.length; i++) {
       var mod = prompts[0].choices[i].value;
