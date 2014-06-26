@@ -149,6 +149,37 @@ Generator.prototype.welcome = function welcome() {
   }
 };
 
+Generator.prototype.askForBootstrap = function askForBootstrap() {
+  var cb = this.async();
+  var prompts = [{
+    type: 'list',
+    name: 'bootstrap',
+    message: 'Which version of Bootstrap would you like to choose?',
+    choices: [{
+      name: 'Bootstrap 3.1.1',
+      value: 'Bootstrap 3.1.1',
+      version: '3',
+    },{
+      name: 'Bootstrap 2.3.2',
+      value: 'Bootstrap 2.3.2',
+      version: '2',
+    }
+    ]
+  }];
+
+  this.prompt(prompts, function (props) {
+    this.bsversion = '';
+    for (var i=0; i < prompts[0].choices.length; ++i) {
+      var mod = prompts[0].choices[i].value;
+      this[mod] = props.bootstrap.indexOf(mod) !== -1;
+      if (this[mod]) {
+        this.bsversion = prompts[0].choices[i].version;
+        }
+      }
+    cb();
+  }.bind(this));
+};
+
 //Generator.prototype.askForMongo = function askForMongo() {
 //  var cb = this.async();
 //
@@ -488,5 +519,5 @@ Generator.prototype.mongoFiles = function () {
   this.template('../../templates/express/controllers/session.js', 'lib/controllers/session.js');
   this.template('../../templates/express/controllers/users.js', 'lib/controllers/users.js');
   // tests
-  this.template('../../templates/express/test/user/model.js', 'test/server/user/model.js');  
+  this.template('../../templates/express/test/user/model.js', 'test/server/user/model.js');
 };
