@@ -174,6 +174,7 @@ Generator.prototype.askForBootstrap = function askForBootstrap() {
       this[mod] = props.bootstrap.indexOf(mod) !== -1;
       if (this[mod]) {
         this.bsversion = prompts[0].choices[i].version;
+        this.env.options.bsversion = this.bsversion;
         }
       }
     cb();

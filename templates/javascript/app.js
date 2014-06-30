@@ -32,7 +32,7 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
 
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$routeChangeStart', function (event, next) {
-      
+
       if (next.authenticate && !Auth.isLoggedIn()) {
         $location.path('/login');
       }
@@ -41,5 +41,9 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
 
 formsAngular.config(['urlServiceProvider', 'cssFrameworkServiceProvider', function (urlService, cssFrameworkService) {
   urlService.setOptions({html5Mode: true});
+    <% if (bsversion == '2'){ %>
+  cssFrameworkService.setOptions({framework: 'bs2'});
+    <% } else { %>
   cssFrameworkService.setOptions({framework: 'bs3'});
+   <% }%>
 }]);
