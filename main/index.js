@@ -17,5 +17,6 @@ Generator.prototype.createAppFile = function createAppFile() {
   this.mongo = this.env.options.mongo;
   this.mongoPassportUser = this.env.options.mongoPassportUser;
   this.ngRoute = this.env.options.ngRoute;
+  this.bsversion = this.env.options.bsversion;
   this.appTemplate('app', 'scripts/app');
 };
