@@ -1,4 +1,4 @@
-# AngularJS Full-Stack generator [![Build Status](https://travis-ci.org/DaftMonk/generator-angular-fullstack.svg?branch=master)](http://travis-ci.org/DaftMonk/generator-angular-fullstack)
+# AngularJS Full-Stack generator [![Build Status](https://travis-ci.org/DaftMonk/generator-fng.svg?branch=master)](http://travis-ci.org/DaftMonk/generator-fng)
 
 > Yeoman generator for creating MEAN stack applications, using MongoDB, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
 
@@ -10,9 +10,9 @@ Source code: https://github.com/DaftMonk/fullstack-demo
 
 ## Usage
 
-Install `generator-angular-fullstack`:
+Install `generator-fng`:
 ```
-npm install -g generator-angular-fullstack
+npm install -g generator-fng
 ```
 
 Make a new directory, and `cd` into it:
@@ -20,9 +20,9 @@ Make a new directory, and `cd` into it:
 mkdir my-new-project && cd $_
 ```
 
-Run `yo angular-fullstack`, optionally passing an app name:
+Run `yo fng`, optionally passing an app name:
 ```
-yo angular-fullstack [app-name]
+yo fng [app-name]
 ```
 
 Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for a preview of the built app.
@@ -62,28 +62,28 @@ A grunt task looks for new files in your `client/app` and `client/components` fo
 Available generators:
 
 * App 
-    - [angular-fullstack](#app) (aka [angular-fullstack:app](#app))
+    - [fng](#app) (aka [fng:app](#app))
 * Server Side
-    - [angular-fullstack:endpoint](#endpoint)
+    - [fng:endpoint](#endpoint)
 * Client Side
-    - [angular-fullstack:route](#route)
-    - [angular-fullstack:controller](#controller)
-    - [angular-fullstack:filter](#filter)
-    - [angular-fullstack:directive](#directive)
-    - [angular-fullstack:service](#service)
-    - [angular-fullstack:provider](#service)
-    - [angular-fullstack:factory](#service)
-    - [angular-fullstack:decorator](#decorator)
+    - [fng:route](#route)
+    - [fng:controller](#controller)
+    - [fng:filter](#filter)
+    - [fng:directive](#directive)
+    - [fng:service](#service)
+    - [fng:provider](#service)
+    - [fng:factory](#service)
+    - [fng:decorator](#decorator)
 * Deployment
-    - [angular-fullstack:openshift](#openshift)
-    - [angular-fullstack:heroku](#heroku)
+    - [fng:openshift](#openshift)
+    - [fng:heroku](#heroku)
 
 ### App
 Sets up a new AngularJS + Express app, generating all the boilerplate you need to get started. 
 
 Example:
 ```bash
-yo angular-fullstack
+yo fng
 ```
 
 ### Endpoint
@@ -92,7 +92,7 @@ Generates a new API endpoint.
 
 Example:
 ```bash
-yo angular-fullstack:endpoint message
+yo fng:endpoint message
 [?] What will the url of your endpoint to be? /api/messages
 ```
 
@@ -109,7 +109,7 @@ Generates a new route.
 
 Example:
 ```bash
-yo angular-fullstack:route myroute
+yo fng:route myroute
 [?] Where would you like to create this route? client/app/
 [?] What will the url of your route be? /myroute
 ```
@@ -128,7 +128,7 @@ Generates a controller.
 
 Example:
 ```bash
-yo angular-fullstack:controller user
+yo fng:controller user
 [?] Where would you like to create this controller? client/app/
 ```
 
@@ -142,7 +142,7 @@ Generates a directive.
 
 Example:
 ```bash
-yo angular-fullstack:directive myDirective
+yo fng:directive myDirective
 [?] Where would you like to create this directive? client/app/
 [?] Does this directive need an external html file? Yes
 ```
@@ -158,7 +158,7 @@ Produces:
 
 Example:
 ```bash
-yo angular-fullstack:directive simple
+yo fng:directive simple
 [?] Where would you like to create this directive? client/app/
 [?] Does this directive need an external html file? No
 ```
@@ -173,7 +173,7 @@ Generates a filter.
 
 Example:
 ```bash
-yo angular-fullstack:filter myFilter
+yo fng:filter myFilter
 [?] Where would you like to create this filter? client/app/
 ```
 
@@ -187,7 +187,7 @@ Generates an AngularJS service.
 
 Example:
 ```bash
-yo angular-fullstack:service myService
+yo fng:service myService
 [?] Where would you like to create this service? client/app/
 ```
 
@@ -204,7 +204,7 @@ Generates an AngularJS service decorator.
 
 Example:
 ```bash
-yo angular-fullstack:decorator serviceName
+yo fng:decorator serviceName
 [?] Where would you like to create this decorator? client/app/
 ```
 
@@ -216,7 +216,7 @@ Produces
 
 Deploying to OpenShift can be done in just a few steps:
 
-    yo angular-fullstack:openshift
+    yo fng:openshift
 
 A live application URL will be available in the output.
 
@@ -254,7 +254,7 @@ Commit and push the resulting build, located in your dist folder:
 
 Deploying to heroku only takes a few steps.
 
-    yo angular-fullstack:heroku 
+    yo fng:heroku 
 
 To work with your new heroku app using the command line, you will need to run any `heroku` commands from the `dist` folder.
 
@@ -381,7 +381,7 @@ An example server component in `server/api`
 
 ## Contribute
 
-See the [contributing docs](https://github.com/DaftMonk/generator-angular-fullstack/blob/master/contributing.md)
+See the [contributing docs](https://github.com/DaftMonk/generator-fng/blob/master/contributing.md)
 
 When submitting an issue, please follow the [guidelines](https://github.com/yeoman/yeoman/blob/master/contributing.md#issue-submission). Especially important is to make sure Yeoman is up-to-date, and providing the command or commands that cause the issue.
 

@@ -54,7 +54,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
     this.log('# Client\n');
 
-    this.prompt([{
+    this.prompt([/*{
         type: "list",
         name: "script",
         message: "What would you like to write scripts with?",
@@ -80,7 +80,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         message: "What would you like to write stylesheets with?",
         choices: [ "CSS", "Sass", "Less"],
         filter: function( val ) { return val.toLowerCase(); }
-      },  {
+      },*/  {
         type: "list",
         name: "router",
         default: 1,
@@ -88,9 +88,12 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         choices: [ "ngRoute", "uiRouter"],
         filter: function( val ) { return val.toLowerCase(); }
       }], function (answers) {
-        this.filters[answers.script] = true;
-        this.filters[answers.markup] = true;
-        this.filters[answers.stylesheet] = true;
+        //this.filters[answers.script] = true;
+        this.filters['js'] = true;
+        //this.filters[answers.markup] = true;
+        this.filters['html'] = true;
+        //this.filters[answers.stylesheet] = true;
+        this.filters['css'] = true;
         this.filters[answers.router] = true;
         cb();
       }.bind(this));
