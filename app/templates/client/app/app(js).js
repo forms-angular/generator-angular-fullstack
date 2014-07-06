@@ -7,13 +7,13 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
         redirectTo: '/'
       });
 
-    $locationProvider.html5Mode(true);<% if(filters.auth) { %>
+  <% if(filters.auth) { %>
     $httpProvider.interceptors.push('authInterceptor');<% } %>
   })<% } %><% if(filters.uirouter) { %>.config(function ($stateProvider, $urlRouterProvider, $locationProvider<% if(filters.auth) { %>, $httpProvider<% } %>) {
     $urlRouterProvider
       .otherwise('/');
 
-    $locationProvider.html5Mode(true);<% if(filters.auth) { %>
+  <% if(filters.auth) { %>
     $httpProvider.interceptors.push('authInterceptor');<% } %>
   })<% } %><% if(filters.auth) { %>
 
@@ -51,3 +51,8 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
       }
     });
   })<% } %>;
+
+formsAngular.config(['urlServiceProvider', 'cssFrameworkServiceProvider', function (urlService, cssFrameworkService) {
+  urlService.setOptions({html5Mode: true});
+  cssFrameworkService.setOptions({framework: 'bs3'});
+}]);

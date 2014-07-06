@@ -137,7 +137,6 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         /*
         answers.plugins.forEach(function(chosenPlugins) {
           this.filters[chosenPlugins] = true;
-          console.log("blah "+ chosenPlugins + " end;\n");
         }.bind(this));
         */
         cb();

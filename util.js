@@ -109,9 +109,6 @@ function processDirectory (self, source, destination) {
 
   files.forEach(function(f) {
     var filteredFile = filterFile(f);
-      console.log("blah1 "+ f + " end\n");
-      console.log("blah2 "+ filteredFile.toString() + " end\n");
-      console.log("blah3 "+ self.name + " end\n");
     if(self.name) {
       filteredFile.name = filteredFile.name.replace('name', self.name);
     }
@@ -136,7 +133,6 @@ function processDirectory (self, source, destination) {
       if(copy) {
         self.copy(src, dest);
       } else {
-      console.log("blah4 "+ src + " X "+ dest + " end\n");
         self.template(src, dest);
       }
     }
