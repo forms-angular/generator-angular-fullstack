@@ -134,11 +134,11 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         //this.filters[answers.stylesheet] = true;
         this.filters['css'] = true;
         this.filters[answers.router] = true;
-        /*
         answers.plugins.forEach(function(chosenPlugins) {
-          this.filters[chosenPlugins] = true;
+          // Enable these when plugins are ready.
+          //this.filters[chosenPlugins] = true;
+          //this.filters['jQueryUI'] = true;
         }.bind(this));
-        */
         cb();
       }.bind(this));
   },
@@ -150,16 +150,17 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
     this.log('\n# Server\n');
 
-    this.prompt([{
+    this.prompt([/*{
       type: "confirm",
       name: "mongoose",
       message: "Would you like to use mongoDB with Mongoose for data modeling?"
-    }, {
+    },*/{
       type: "confirm",
       name: "auth",
       message: "Would you scaffold out an authentication boilerplate?",
       when: function (answers) {
-        return answers.mongoose;
+        //return answers.mongoose;
+        return true;
       }
     }, {
       type: 'checkbox',
@@ -172,17 +173,17 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         {
           value: 'googleAuth',
           name: 'Google',
-          checked: false
+          checked: true
         },
         {
           value: 'facebookAuth',
           name: 'Facebook',
-          checked: false
+          checked: true
         },
         {
           value: 'twitterAuth',
           name: 'Twitter',
-          checked: false
+          checked: true
         }
       ]
     }, {
@@ -196,7 +197,8 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       default: true
     }], function (answers) {
       if(answers.socketio) this.filters['socketio'] = true;
-      if(answers.mongoose) this.filters['mongoose'] = true;
+      //if(answers.mongoose) this.filters['mongoose'] = true;
+      this.filters['mongoose'] = true;
       if(answers.auth) this.filters['auth'] = true;
       if(answers.oauth) {
         answers.oauth.forEach(function(oauthStrategy) {
