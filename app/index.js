@@ -27,7 +27,9 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
   info: function () {
     this.log(this.yeoman);
-    this.log('Out of the box I create an AngularJS app with an Express server.\n');
+    console.log(
+      'Out of the box I include Bootstrap, Mongoose and some AngularJS recommended modules.\n'
+    );
   },
 
   checkForConfig: function() {
@@ -80,7 +82,44 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         message: "What would you like to write stylesheets with?",
         choices: [ "CSS", "Sass", "Less"],
         filter: function( val ) { return val.toLowerCase(); }
-      },*/  {
+      },*/{
+      type: 'checkbox',
+      name: 'plugins',
+      message: 'Which plugins would you like to include?',
+      choices: [{
+        name: 'jQuery UI date picker',
+        value: 'uiDate',
+        dep: '\'ui.date\'',
+        jQueryUI: true,
+        checked: true
+      },{
+        name: 'Columnar reporting',
+        value: 'reports',
+        dep: '\'ngGrid\'',
+        jQueryUI: false,
+        checked: true
+      },{
+        name: 'Fully featured text / HTML editor',
+        value: 'ckeditor',
+        dep: '\'ngCkeditor\'',
+        jQueryUI: true,
+        checked: true
+      },{
+        name: 'Enhanced select control',
+        value: 'select2',
+        dep: '\'ui.select2\'',
+        jQueryUI: false,
+        checked: true
+      }
+//   ,{
+//     name: 'File uploader',
+//     value: 'jqUpload',
+//     dep: '"uploadModule"',
+//     jQueryUI: false,
+//     checked: true
+//    }
+      ]
+    },{
         type: "list",
         name: "router",
         default: 1,
@@ -95,6 +134,12 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         //this.filters[answers.stylesheet] = true;
         this.filters['css'] = true;
         this.filters[answers.router] = true;
+        /*
+        answers.plugins.forEach(function(chosenPlugins) {
+          this.filters[chosenPlugins] = true;
+          console.log("blah "+ chosenPlugins + " end;\n");
+        }.bind(this));
+        */
         cb();
       }.bind(this));
   },
@@ -211,6 +256,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     this.filters = this.config.get('filters');
     var angModules = [
       "'ngCookies'",
+      "'formsAngular'",
       "'ngResource'",
       "'ngSanitize'",
       "'ui.bootstrap'"
