@@ -1,7 +1,7 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
 
 var ApplicantSchema = new Schema({
   surname: {type:String, required:true, index:true},
@@ -12,6 +12,4 @@ var ApplicantSchema = new Schema({
 status: {type: String, default:'Pending', enum:['Pending','Rejected','Shortlist']<% if(filters.select2) { %>, form: {select2: {}}<% } %>}
 });
 
-var Applicant = mongoose.model('Applicant', ApplicantSchema);
-
-module.exports = Applicant;
+module.exports = mongoose.model('Applicant', ApplicantSchema);
