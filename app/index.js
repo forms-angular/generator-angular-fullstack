@@ -157,11 +157,11 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     },*/{
       type: "confirm",
       name: "auth",
-      message: "Would you scaffold out an authentication boilerplate?",
+      message: "Would you scaffold out an authentication boilerplate?"/*,
       when: function (answers) {
         //return answers.mongoose;
         return true;
-      }
+      }*/
     }, {
       type: 'checkbox',
       name: 'oauth',
@@ -191,9 +191,10 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       name: "socketio",
       message: "Would you like to use socket.io?",
       // to-do: should not be dependent on mongoose
+      /*
       when: function (answers) {
         return answers.mongoose;
-      },
+      },*/
       default: true
     }], function (answers) {
       if(answers.socketio) this.filters['socketio'] = true;
