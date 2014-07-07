@@ -3,7 +3,7 @@
 angular.module('<%= scriptAppName %>')
   .controller('ApplicantCtrl', function ($scope, $http, Auth, User) {
 
-    $http.get('/api/users').success(function(users) {
+    $http.get('/api/applicants').success(function(users) {
       $scope.users = users;
     });
 
