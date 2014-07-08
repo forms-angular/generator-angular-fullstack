@@ -1,11 +1,8 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>', [<%= angularModules %>])
-  <% if(filters.ngroute) { %>.config(function ($routeProvider, $locationProvider<% if(filters.auth) { %>, $httpProvider<% } %>) {
-    $routeProvider
-      .otherwise({
-        redirectTo: '/'
-      });
+  <% if(filters.ngroute) { %>.config(function (formRoutesProvider, $locationProvider<% if(filters.auth) { %>, $httpProvider<% } %>) {
+    formRoutesProvider.setRoutes([],'/');
 
   <% if(filters.auth) { %>
     $httpProvider.interceptors.push('authInterceptor');<% } %>
