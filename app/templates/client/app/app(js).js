@@ -53,5 +53,5 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
 
 formsAngular.config(['urlServiceProvider', 'cssFrameworkServiceProvider', function (urlService, cssFrameworkService) {
   urlService.setOptions({html5Mode: true});
-  cssFrameworkService.setOptions({framework: 'bs3'});
+  cssFrameworkService.setOptions({framework: '<% if(filters.bs3) { %>bs3<% } %><% if(filters.bs2) { %>bs2<% } %>'});
 }]);

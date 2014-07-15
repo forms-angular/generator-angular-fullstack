@@ -83,6 +83,18 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         choices: [ "CSS", "Sass", "Less"],
         filter: function( val ) { return val.toLowerCase(); }
       },*/{
+      type: "list",
+      name: "framework",
+      message: "Which CSS framework would you like to use?",
+      choices: [ "Twitter Bootstrap 3.1.1", "Twitter Bootstrap 2.3.2 (deprecated)"],
+      filter: function( val ) {
+        var retVal = 'bs2';
+        if (val === "Twitter Bootstrap 3.1.1") {
+          retVal = 'bs3';
+        }
+        return retVal;
+      }
+    },{
       type: 'checkbox',
       name: 'plugins',
       message: 'Which plugins would you like to include?',
@@ -127,6 +139,9 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         choices: [ "ngRoute", "uiRouter"],
         filter: function( val ) { return val.toLowerCase(); }
       }], function (answers) {
+      console.log(answers);
+        this.filters[answers.framework] = true;
+      console.log(this.filters);
         //this.filters[answers.script] = true;
         this.filters['js'] = true;
         //this.filters[answers.markup] = true;
