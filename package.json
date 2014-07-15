@@ -17,12 +17,12 @@
     "front-end",
     "app"
   ],
-  "homepage": "https://github.com/drake01/generator-angular-fullstack",
-  "bugs": "https://github.com/drake01/generator-angular-fullstack/issues",
+  "homepage": "https://github.com/forms-angular/generator-angular-fullstack",
+  "bugs": "https://github.com/forms-angular/generator-angular-fullstack/issues",
   "author": "Gulshan Kumar",
   "repository": {
     "type": "git",
-    "url": "git://github.com/drake01/generator-angular-fullstack.git"
+    "url": "git://github.com/forms-angular/generator-angular-fullstack.git"
   },
   "scripts": {
     "test": "mocha"
