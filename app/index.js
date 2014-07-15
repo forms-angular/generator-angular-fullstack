@@ -122,7 +122,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     },{
         type: "list",
         name: "router",
-        default: 1,
+        default: 0,
         message: "What Angular router would you like to use?",
         choices: [ "ngRoute", "uiRouter"],
         filter: function( val ) { return val.toLowerCase(); }
