@@ -23,12 +23,8 @@
     "passport-local": "~0.1.6",<% } %><% if(filters.facebookAuth) { %>
     "passport-facebook": "latest",<% } %><% if(filters.twitterAuth) { %>
     "passport-twitter": "latest",<% } %><% if(filters.googleAuth) { %>
-    "passport-google-oauth": "latest",<% } %><% if(filters.uiDate) { %>
-    "fng-ui-date": "latest",<% } %><% if(filters.reports) { %>
-    "fng-reports": "latest",<% } %><% if(filters.ckeditor) { %>
-    "fng-ckeditor": "latest",<% } %><% if(filters.select2) { %>
-    "fng-select2": "latest",<% } %><% if (filters.jqUpload) { %>,
-    "fng-jq-upload": "0.4.0-alpha.1"<% } %>
+    "passport-google-oauth": "latest",<% } %><% if(filters.reports) { %>
+    "fng-reports": "latest",<% } %>
     "composable-middleware": "^0.3.0",
     "connect-mongo": "^0.4.1"<% if(filters.socketio) { %>,
     "socket.io": "~1.0.6",

@@ -7,6 +7,40 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var wiredep = require('wiredep');
 
+var pluginChoices = [{
+  name: 'jQuery UI date picker',
+  value: 'uiDate',
+  dep: '\'ui.date\'',
+  jQueryUI: true,
+  checked: true
+},{
+  name: 'Columnar reporting',
+  value: 'reports',
+  dep: '\'ngGrid\'',
+  jQueryUI: false,
+  checked: true
+},{
+  name: 'Fully featured text / HTML editor',
+  value: 'ckeditor',
+  dep: '\'ngCkeditor\'',
+  jQueryUI: true,
+  checked: true
+},{
+  name: 'Enhanced select control',
+  value: 'select2',
+  dep: '\'ui.select2\'',
+  jQueryUI: false,
+  checked: true
+}
+//   ,{
+//     name: 'File uploader',
+//     value: 'jqUpload',
+//     dep: '"uploadModule"',
+//     jQueryUI: false,
+//     checked: true
+//    }
+];
+
 var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
   init: function () {
@@ -51,6 +85,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
   },
 
   clientPrompts: function() {
+
     if(this.skipConfig) return;
     var cb = this.async();
 
@@ -98,39 +133,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       type: 'checkbox',
       name: 'plugins',
       message: 'Which plugins would you like to include?',
-      choices: [{
-        name: 'jQuery UI date picker',
-        value: 'uiDate',
-        dep: '\'ui.date\'',
-        jQueryUI: true,
-        checked: true
-      },{
-        name: 'Columnar reporting',
-        value: 'reports',
-        dep: '\'ngGrid\'',
-        jQueryUI: false,
-        checked: true
-      },{
-        name: 'Fully featured text / HTML editor',
-        value: 'ckeditor',
-        dep: '\'ngCkeditor\'',
-        jQueryUI: true,
-        checked: true
-      },{
-        name: 'Enhanced select control',
-        value: 'select2',
-        dep: '\'ui.select2\'',
-        jQueryUI: false,
-        checked: true
-      }
-//   ,{
-//     name: 'File uploader',
-//     value: 'jqUpload',
-//     dep: '"uploadModule"',
-//     jQueryUI: false,
-//     checked: true
-//    }
-      ]
+      choices: pluginChoices
     },{
         type: "list",
         name: "router",
@@ -149,10 +152,16 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         //this.filters[answers.stylesheet] = true;
         this.filters['css'] = true;
         this.filters[answers.router] = true;
-        answers.plugins.forEach(function(chosenPlugins) {
-          // Enable these when plugins are ready.
-          //this.filters[chosenPlugins] = true;
-          //this.filters['jQueryUI'] = true;
+        answers.plugins.forEach(function(chosenPlugin) {
+          this.filters[chosenPlugin] = true;
+          if (!this.filters['jQueryUI']) {
+            var thisPlugin = _.find(pluginChoices, function(choice) {
+              return (choice.name == chosenPlugin);
+            });
+            if (thisPlugin && thisPlugin.jQueryUI) {
+              this.filters['jQueryUI'] = true;
+            }
+          }
         }.bind(this));
         cb();
       }.bind(this));
@@ -282,6 +291,11 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     if(this.filters['ngroute']) angModules.push("'ngRoute'");
     if(this.filters['socketio']) angModules.push("'btford.socket-io'");
     if(this.filters['uirouter']) angModules.push("'ui.router'");
+
+    pluginChoices.forEach(function(plugin) {
+      if (this.filters[plugin.value])
+        angModules.push(plugin.dep);
+    }.bind(this));
 
     this.angularModules = "\n  " + angModules.join(",\n  ") +"\n";
   },
