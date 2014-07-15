@@ -1,25 +1,10 @@
 'use strict';
-var util = require('util');
-var ScriptBase = require('../script-base.js');
+var yeoman = require('yeoman-generator');
 
-
-var Generator = module.exports = function Generator() {
-  ScriptBase.apply(this, arguments);
-
-  // if the controller name is suffixed with ctrl, remove the suffix
-  // if the controller name is just "ctrl," don't append/remove "ctrl"
-  if (this.name && this.name.toLowerCase() !== 'ctrl' && this.name.substr(-4).toLowerCase() === 'ctrl') {
-    this.name = this.name.slice(0, -4);
+var Generator = yeoman.generators.Base.extend({
+  compose: function() {
+    this.composeWith('ng-component:controller', {arguments: this.arguments}, { local: require.resolve('generator-ng-component/controller') });
   }
-};
+});
 
-util.inherits(Generator, ScriptBase);
-
-Generator.prototype.createControllerFiles = function createControllerFiles() {
-  this.generateSourceAndTest(
-    'controller',
-    'spec/controller',
-    'controllers',
-    this.options['skip-add'] || false
-  );
-};
+module.exports = Generator;

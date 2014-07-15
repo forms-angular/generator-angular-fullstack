@@ -1,19 +1,10 @@
 'use strict';
-var util = require('util');
-var ScriptBase = require('../script-base.js');
+var yeoman = require('yeoman-generator');
 
+var Generator = yeoman.generators.Base.extend({
+  compose: function() {
+    this.composeWith('ng-component:provider', {arguments: this.arguments}, { local: require.resolve('generator-ng-component/provider') });
+  }
+});
 
-var Generator = module.exports = function Generator() {
-  ScriptBase.apply(this, arguments);
-};
-
-util.inherits(Generator, ScriptBase);
-
-Generator.prototype.createServiceFiles = function createServiceFiles() {
-  this.generateSourceAndTest(
-    'service/provider',
-    'spec/service',
-    'services',
-    this.options['skip-add'] || false
-  );
-};
+module.exports = Generator;

@@ -1,6 +1,6 @@
 {
   "name": "generator-fng",
-  "version": "0.0.1-alpha.2",
+  "version": "0.0.2",
   "description": "Generate forms-angular applications for the MEAN stack",
   "keywords": [
     "yeoman-generator",
@@ -11,41 +11,43 @@
     "scaffold",
     "forms",
     "forms-angular",
+    "fullstack",
     "framework",
     "component",
     "front-end",
     "app"
   ],
-  "homepage": "https://github.com/forms-angular/generator-fng",
-  "bugs": "https://github.com/forms-angular/generator-fng/issues",
-  "author": "Mark Chapman (after Tyler Henkel)",
-  "main": "app/index.js",
+  "homepage": "https://github.com/drake01/generator-angular-fullstack",
+  "bugs": "https://github.com/drake01/generator-angular-fullstack/issues",
+  "author": "Gulshan Kumar",
   "repository": {
     "type": "git",
-    "url": "git://github.com/forms-angular/generator-fng.git"
+    "url": "git://github.com/drake01/generator-angular-fullstack.git"
   },
   "scripts": {
     "test": "mocha"
   },
   "dependencies": {
-    "yeoman-generator": "~0.16.0",
+    "yeoman-generator": "~0.17.0",
     "chalk": "~0.4.0",
-    "wiredep": "~0.4.2"
+    "wiredep": "~0.4.2",
+    "generator-ng-component": ">=0.0.4"
   },
   "peerDependencies": {
-    "generator-karma": ">=0.7.0",
-    "yo": ">=1.0.0"
+    "yo": ">=1.2.0"
   },
   "devDependencies": {
-    "mocha": "~1.14.0",
+    "chai": "^1.9.1",
+    "fs-extra": "^0.9.1",
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.7.2",
     "grunt-conventional-changelog": "~1.0.0",
+    "grunt-release": "~0.6.0",
     "load-grunt-tasks": "~0.2.0",
     "marked": "~0.2.8",
+    "mocha": "~1.14.0",
     "semver": "~2.2.1",
-    "underscore.string": "~2.3.1",
-    "grunt-release": "~0.6.0"
+    "underscore.string": "~2.3.1"
   },
   "engines": {
     "node": ">=0.10.0",

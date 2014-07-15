@@ -1,267 +1,299 @@
-/*global describe, before, it, beforeEach */
+/*global describe, beforeEach, it */
 'use strict';
 var path = require('path');
-var util = require('util');
-var generators = require('yeoman-generator');
 var helpers = require('yeoman-generator').test;
-var _ = require('underscore.string');
+var chai = require('chai');
+var expect = chai.expect;
+var fs = require('fs-extra');
+var exec = require('child_process').exec;
 
-describe('Angular generator', function () {
-  var angular;
+describe('fng generator', function () {
+  var gen, defaultOptions = {
+    script: 'js',
+    markup: 'html',
+    stylesheet: 'sass',
+    router: 'uirouter',
+    mongoose: true,
+    auth: true,
+    oauth: [],
+    socketio: true
+  };
 
-  beforeEach(function (done) {
-    var deps = [
-      '../../app',
-      '../../common',
-      '../../controller',
-      '../../main', [
-        helpers.createDummyGenerator(),
-        'karma:app'
-      ]
-    ];
-    var p = path.join(__dirname, 'temp');
-    var busyTries = 0;
-    var busyTriesMax = 3;
-    helpers.testDirectory(p, function CB (err) {
-      if (err) {
-        //For Windows users
-        if (err.code === "EBUSY" && busyTries < busyTriesMax) {
-          if(process.cwd() === p && process.platform === "win32"){
-            process.chdir(path.join(p, '..'));
-          }
-          busyTries++;
-          var time = busyTries * 100;
-          // try again, with the same exact callback as this one.
-          return setTimeout(function () {
-            helpers.testDirectory(p, CB)
-          }, time)
-        }
-        done(err);
-      }
-      angular = helpers.createGenerator('fng:app', deps);
-      angular.options['skip-install'] = true;
-      done();
-    });
-  });
+  function generatorTest(generatorType, name, mockPrompt, callback) {
+    gen.run({}, function () {
+      var afGenerator;
+      var deps = [path.join('../..', generatorType)];
+      afGenerator = helpers.createGenerator('fng:' + generatorType, deps, [name]);
 
-  it('should generate dotfiles', function (done) {
-    helpers.mockPrompt(angular, {
-      compass: true,
-      bootstrap: true,
-      compassBootstrap: true,
-      modules: []
-    });
-
-    angular.run({}, function () {
-      helpers.assertFiles(['.bowerrc', '.gitignore', '.editorconfig', '.jshintrc']);
-      done();
-    });
-  });
-
-  // Failing test needs to be skipped
-  it.skip('creates expected files', function (done) {
-    var expected = ['app/.htaccess',
-                    'app/404.html',
-                    'app/favicon.ico',
-                    'app/robots.txt',
-                    'app/styles/main.scss',
-                    'app/views/main.html',
-                    ['.bowerrc', /"directory": "app\/bower_components"/],
-                    'Gruntfile.js',
-                    'package.json',
-                    'server.js',
-                    ['bower.json', /"name":\s+"temp"/],
-                    'app/scripts/app.js',
-                    'app/views/index.html',
-                    'app/scripts/controllers/main.js',
-                    'test/spec/controllers/main.js'
-                    ];
-    helpers.mockPrompt(angular, {
-      compass: true,
-      bootstrap: true,
-      compassBootstrap: true,
-      modules: []
-    });
-
-    angular.run({}, function() {
-      helpers.assertFiles(expected);
-      done();
-    });
-  });
-
-  // Failing test needs to be skipped
-  it.skip('creates coffeescript files', function (done) {
-    var expected = ['app/.htaccess',
-                    'app/404.html',
-                    'app/favicon.ico',
-                    'app/robots.txt',
-                    'app/styles/main.scss',
-                    'app/views/main.html',
-                    ['.bowerrc', /"directory": "app\/bower_components"/],
-                    'Gruntfile.js',
-                    'package.json',
-                    ['bower.json', /"name":\s+"temp"/],
-                    'app/scripts/app.coffee',
-                    'app/views/index.html',
-                    'app/scripts/controllers/main.coffee',
-                    'test/spec/controllers/main.coffee'
-                    ];
-    helpers.mockPrompt(angular, {
-      compass: true,
-      bootstrap: true,
-      compassBootstrap: true,
-      modules: []
-    });
-
-    angular.env.options.coffee = true;
-    angular.run([], function () {
-      helpers.assertFiles(expected);
-      done();
-    });
-  });
-
-  /**
-   * Generic test function that can be used to cover the scenarios where a generator is creating both a source file
-   * and a test file. The function will run the respective generator, and then check for the existence of the two
-   * generated files. A RegExp check is done on each file, checking for the generated content with a pattern.
-   *
-   * The number of parameters is quite huge due to the many options in which the generated files differ,
-   * e.g. Services start with an upper case letter, whereas filters, directives or constants start with a lower case
-   * letter.
-   *
-   * The generated items all use the dummy name 'foo'.
-   *
-   * @param generatorType The type of generator to run, e.g. 'filter'.
-   * @param specType The type of the generated spec file, e.g. 'service' - all service types (constant, value, ...)
-   *    use the same Service spec template.
-   * @param targetDirectory The directory into which the files are generated, e.g. 'directives' - this will be
-   *    located under 'app/scripts' for the sources and 'test/spec' for the tests.
-   * @param scriptNameFn The function used to create the name of the created item, e.g. _.classify to generate 'Foo',
-   *    or _.camelize to generate 'foo'.
-   * @param specNameFn Same as scriptNameFn, but for the describe text used in the Spec file. Some generators use
-   *    _.classify, others use _.camelize.
-   * @param suffix An optional suffix to be appended to the generated item name, e.g. 'Ctrl' for controllers, which
-   *    will generate 'FooCtrl'.
-   * @param done The done function.
-   */
-  function generatorTest(generatorType, specType, targetDirectory, scriptNameFn, specNameFn, suffix, done) {
-    var angularGenerator;
-    var name = 'foo';
-    var deps = [path.join('../..', generatorType)];
-    angularGenerator = helpers.createGenerator('fng:' + generatorType, deps, [name]);
-
-    helpers.mockPrompt(angular, {
-      compass: true,
-      bootstrap: true,
-      compassBootstrap: true,
-      modules: []
-    });
-    angular.run([], function (){
-      angularGenerator.run([], function () {
-        helpers.assertFiles([
-          [path.join('app/scripts', targetDirectory, name + '.js'), new RegExp(generatorType + '\\(\'' + scriptNameFn(name) + suffix + '\'', 'g')],
-          [path.join('test/spec', targetDirectory, name + '.js'), new RegExp('describe\\(\'' + _.classify(specType) + ': ' + specNameFn(name) + suffix + '\'', 'g')]
-        ]);
-        done();
+      helpers.mockPrompt(afGenerator, mockPrompt);
+      afGenerator.run([], function () {
+        callback();
       });
     });
   }
 
-  describe('Controller', function () {
-    // Failing test needs to be skipped
-    it.skip('should generate a new controller', function (done) {
-      generatorTest('controller', 'controller', 'controllers', _.classify, _.classify, 'Ctrl', done);
+  beforeEach(function (done) {
+    this.timeout(10000);
+    var deps = [
+      '../../app',
+      [
+        helpers.createDummyGenerator(),
+        'ng-component:app'
+      ]
+    ];
+
+    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+      if (err) {
+        return done(err);
+      }
+
+      gen = helpers.createGenerator('fng:app', deps);
+      gen.options['skip-install'] = true;
+      done();
+    }.bind(this));
+  });
+
+  it('should generate expected files', function (done) {
+    helpers.mockPrompt(gen, defaultOptions);
+
+    gen.run({}, function () {
+      helpers.assertFile([
+        'client/.htaccess',
+        'client/favicon.ico',
+        'client/robots.txt',
+        'client/app/main/main.scss',
+        'client/app/main/main.html',
+        'client/index.html',
+        'client/.jshintrc',
+        'client/assets/images/yeoman.png',
+        '.bowerrc',
+        '.editorconfig',
+        '.gitignore',
+        'Gruntfile.js',
+        'package.json',
+        'bower.json',
+        'server/app.js',
+        'server/config/express.js',
+        'server/api/thing/index.js']);
+      done();
     });
   });
 
-  describe('Directive', function () {
-    // Failing test needs to be skipped
-    it.skip('should generate a new directive', function (done) {
-      generatorTest('directive', 'directive', 'directives', _.camelize, _.camelize, '', done);
-    });
-  });
-
-  describe('Filter', function () {
-    // Failing test needs to be skipped
-    it.skip('should generate a new filter', function (done) {
-      generatorTest('filter', 'filter', 'filters', _.camelize, _.camelize, '', done);
-    });
-  });
-
-  describe('Service', function () {
-    function serviceTest (generatorType, nameFn, done) {
-      generatorTest(generatorType, 'service', 'services', nameFn, nameFn, '', done);
-    }
-
-    // Failing test needs to be skipped
-    it.skip('should generate a new constant', function (done) {
-      serviceTest('constant', _.camelize, done);
+  describe('running app', function() {
+    beforeEach(function() {
+      this.timeout(20000);
+      fs.copySync(__dirname + '/fixtures/node_modules', __dirname + '/temp/node_modules');
+      fs.copySync(__dirname +'/fixtures/bower_components', __dirname +'/temp/client/bower_components');
     });
 
-    // Failing test needs to be skipped
-    it.skip('should generate a new service', function (done) {
-      serviceTest('service', _.classify, done);
-    });
-
-    // Failing test needs to be skipped
-    it.skip('should generate a new factory', function (done) {
-      serviceTest('factory', _.camelize, done);
-    });
-
-    // Failing test needs to be skipped
-    it.skip('should generate a new provider', function (done) {
-      serviceTest('provider', _.camelize, done);
-    });
-
-    // Failing test needs to be skipped
-    it.skip('should generate a new value', function (done) {
-      serviceTest('value', _.camelize, done);
-    });
-  });
-
-  describe('View', function () {
-    // Failing test needs to be skipped
-    it.skip('should generate a new view', function (done) {
-      var angularView;
-      var deps = ['../../view'];
-      angularView = helpers.createGenerator('fng:view', deps, ['foo']);
-
-      helpers.mockPrompt(angular, {
-        compass: true,
-        bootstrap: true,
-        compassBootstrap: true,
-        modules: []
+    describe('with default options', function() {
+      beforeEach(function() {
+        helpers.mockPrompt(gen, defaultOptions);
       });
-      angular.run([], function (){
-        angularView.run([], function () {
-          helpers.assertFiles([
-            ['app/views/partials/foo.html']
+
+      it('should run client tests successfully', function(done) {
+        this.timeout(60000);
+        gen.run({}, function () {
+          exec('grunt test:client', function (error, stdout, stderr) {
+            expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Executed 1 of 1\u001b[32m SUCCESS\u001b');
+            done();
+          });
+        });
+      });
+
+      it('should run server tests successfully', function(done) {
+        this.timeout(60000);
+        gen.run({}, function () {
+          exec('grunt test:server', function (error, stdout, stderr) {
+            expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
+            done();
+          });
+        });
+      });
+
+      it('should run server tests successfully with generated endpoint', function(done) {
+        this.timeout(60000);
+        generatorTest('endpoint', 'foo', {}, function() {
+          exec('grunt test:server', function (error, stdout, stderr) {
+            expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
+            done();
+          });
+        });
+      });
+
+      it('should use existing config if available', function(done) {
+        this.timeout(60000);
+        fs.copySync(__dirname + '/fixtures/.yo-rc.json', __dirname + '/temp/.yo-rc.json');
+        var gen = helpers.createGenerator('fng:app', [
+          '../../app',
+          [
+            helpers.createDummyGenerator(),
+            'ng-component:app'
+          ]
+        ]);
+        gen.options['skip-install'] = true;
+        helpers.mockPrompt(gen, {
+          skipConfig: true
+        });
+        gen.run({}, function () {
+          helpers.assertFile([
+            'client/app/main/main.less',
+            'client/app/main/main.coffee'
           ]);
           done();
         });
       });
+
+//      it('should run e2e tests successfully', function(done) {
+//        this.timeout(80000);
+//        gen.run({}, function () {
+//          exec('npm run update-webdriver', function (error, stdout, stderr) {
+//            exec('grunt test:e2e', function (error, stdout, stderr) {
+//              expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Done, without errors.');
+//              done();
+//            });
+//          });
+//        })
+//      });
     });
 
-    // Failing test needs to be skipped
-    it.skip('should generate a new view in subdirectories', function (done) {
-      var angularView;
-      var deps = ['../../view'];
-      angularView = helpers.createGenerator('fng:view', deps, ['foo/bar']);
-
-      helpers.mockPrompt(angular, {
-        compass: true,
-        bootstrap: true,
-        compassBootstrap: true,
-        modules: []
-      });
-      angular.run([], function (){
-        angularView.run([], function () {
-          helpers.assertFiles([
-            ['app/views/partials/foo/bar.html']
-          ]);
-          done();
+    describe('with other preprocessors', function() {
+      beforeEach(function() {
+        helpers.mockPrompt(gen, {
+          script: 'coffee',
+          markup: 'jade',
+          stylesheet: 'less',
+          router: 'uirouter',
+          mongoose: true,
+          auth: true,
+          oauth: [],
+          socketio: true
         });
       });
+
+      it('should run client tests successfully', function(done) {
+        this.timeout(60000);
+        gen.run({}, function () {
+          exec('grunt test:client', function (error, stdout, stderr) {
+            expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Executed 1 of 1\u001b[32m SUCCESS\u001b');
+            done();
+          });
+        });
+      });
+
+      it('should pass jshint', function(done) {
+        this.timeout(60000);
+        gen.run({}, function () {
+          exec('grunt jshint', function (error, stdout, stderr) {
+            expect(stdout).to.contain('Running "jshint:server" (jshint) task\u001b[24m\n\n✔ No problems');
+            expect(stdout).to.contain('Running "jshint:all" (jshint) task\u001b[24m\n\n✔ No problems');
+            done();
+          });
+        });
+      });
+
+      it('should run server tests successfully', function(done) {
+        this.timeout(60000);
+        gen.run({}, function () {
+          exec('grunt test:server', function (error, stdout, stderr) {
+            expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
+            done();
+          });
+        });
+      });
+    });
+
+    describe('with other preprocessors and no server options', function() {
+      beforeEach(function() {
+        helpers.mockPrompt(gen, {
+          script: 'coffee',
+          markup: 'jade',
+          stylesheet: 'stylus',
+          router: 'ngroute',
+          mongoose: false,
+          auth: false,
+          oauth: [],
+          socketio: false
+        });
+      });
+
+      it('should run client tests successfully', function(done) {
+        this.timeout(60000);
+        gen.run({}, function () {
+          exec('grunt test:client', function (error, stdout, stderr) {
+            expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Executed 1 of 1\u001b[32m SUCCESS\u001b');
+            done();
+          });
+        });
+      });
+      
+      it('should pass jshint', function(done) {
+        this.timeout(60000);
+        gen.run({}, function () {
+          exec('grunt jshint', function (error, stdout, stderr) {
+            expect(stdout).to.contain('Running "jshint:server" (jshint) task\u001b[24m\n\n✔ No problems');
+            expect(stdout).to.contain('Running "jshint:all" (jshint) task\u001b[24m\n\n✔ No problems');
+            done();
+          });
+        });
+      });
+
+      it('should run server tests successfully', function(done) {
+        this.timeout(60000);
+        gen.run({}, function () {
+          exec('grunt test:server', function (error, stdout, stderr) {
+            expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
+            done();
+          });
+        });
+      });
+    });
+
+    describe('with no preprocessors and no server options', function() {
+      beforeEach(function() {
+        helpers.mockPrompt(gen, {
+          script: 'js',
+          markup: 'html',
+          stylesheet: 'css',
+          router: 'ngroute',
+          mongoose: false,
+          auth: false,
+          oauth: [],
+          socketio: false
+        });
+      });
+
+      it('should run client tests successfully', function(done) {
+        this.timeout(60000);
+        gen.run({}, function () {
+          exec('grunt test:client', function (error, stdout, stderr) {
+            expect(stdout, 'Client tests failed \n' + stdout ).to.contain('Executed 1 of 1\u001b[32m SUCCESS\u001b');
+            done();
+          });
+        });
+      });
+
+      it('should pass jshint', function(done) {
+        this.timeout(60000);
+        gen.run({}, function () {
+          exec('grunt jshint', function (error, stdout, stderr) {
+            expect(stdout).to.contain('Running "jshint:server" (jshint) task\u001b[24m\n\n✔ No problems');
+            expect(stdout).to.contain('Running "jshint:all" (jshint) task\u001b[24m\n\n✔ No problems');
+            done();
+          });
+        });
+      });
+
+      it('should run server tests successfully', function(done) {
+        this.timeout(60000);
+        gen.run({}, function () {
+          exec('grunt test:server', function (error, stdout, stderr) {
+            expect(stdout, 'Server tests failed (do you have mongoDB running?) \n' + stdout).to.contain('Done, without errors.');
+            done();
+          });
+        });
+      });
+
     });
   });
 });

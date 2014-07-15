@@ -1,3 +1,65 @@
+<a name="v2.0.4"></a>
+### v2.0.4 (2014-07-08)
+
+
+#### Bug Fixes
+
+* **app:** fix dependency injection minsafe problem in auth service coffeescript. ([03742a80](http://github.com/DaftMonk/generator-angular-fullstack/commit/03742a8000f19efdf14791ff1aae52a90e86c149))
+* **gen:** heroku and openshift generators requiring .yo-rc file to work ([88ebfc8c](http://github.com/DaftMonk/generator-angular-fullstack/commit/88ebfc8c835ac6ec04b6d42fcf9357cfb0bcc47d))
+
+<a name="v2.0.3"></a>
+### v2.0.3 (2014-07-04)
+
+
+#### Bug Fixes
+
+* **server:** only enable sessions if twitter oauth was selected ([bcd00dc0](http://github.com/DaftMonk/generator-angular-fullstack/commit/bcd00dc02d270486adafe6dbf973a4ec25499a5e))
+
+<a name="v2.0.2"></a>
+### v2.0.2 (2014-07-02)
+
+#### Bug Fixes
+
+* **gen:endpoint**
+    * fix endpoint spec not properly adjusting to users route url
+    * fix some valid route urls causing failing tests
+    
+<a name="v2.0.0"></a>
+## v2.0.0 (2014-07-02)
+
+#### Features
+
+* **app:**
+    * Follow googles AngularJS project recommendations to make a very modular app structure.
+    * New look for generated app
+    * Add basic crud interface to app
+    * Support for UI Router
+    * Support for LESS
+    * Built in support for protractor e2e tests
+    * Add angular-bootstrap and lodash to default app
+    * More consistent and understandable naming conventions for files
+* **server:**
+    * Modular project structure for express server
+    * Support for social auths with facebook/twitter/google
+    * Role based authentication
+    * Replace session based authentication with JWT authentication
+    * Optional integration with socket.io
+    * Added config file, ignored by git, for setting local environment variables, api keys, secrets.. etc.
+* **gruntfile:**
+    * Optimizations to the gruntfile
+    * Automate injection of new scripts into index file with grunt
+    * Use ng-templates to concatenate all the html/jade views into the javascript payload
+* **gen:**
+    * Abstract client-side generators into generator-ng-component, use new composition feature of yeoman to keep them available in the generator.
+    * Add useful tests to the generator, start using travis CI
+    * use .yo-rc file to keep track of generated configurations
+    * Add endpoint generator to fng, generates model / route / controller / test / socket updates
+
+#### Breaking Changes
+ * New project structure
+ * Deprecated value and constant sub generators 
+ * Sub-generators generate components in a single directory and don't inject themselves into the index file (this is done by a grunt task now)
+
 <a name="v1.4.3"></a>
 ### v1.4.3 (2014-05-25)
 

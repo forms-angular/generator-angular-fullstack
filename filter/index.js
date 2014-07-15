@@ -1,19 +1,10 @@
 'use strict';
-var util = require('util');
-var ScriptBase = require('../script-base.js');
+var yeoman = require('yeoman-generator');
 
+var Generator = yeoman.generators.Base.extend({
+  compose: function() {
+    this.composeWith('ng-component:filter', {arguments: this.arguments}, { local: require.resolve('generator-ng-component/filter') });
+  }
+});
 
-var Generator = module.exports = function Generator() {
-  ScriptBase.apply(this, arguments);
-};
-
-util.inherits(Generator, ScriptBase);
-
-Generator.prototype.createFilterFiles = function createFilterFiles() {
-  this.generateSourceAndTest(
-    'filter',
-    'spec/filter',
-    'filters',
-    this.options['skip-add'] || false
-  );
-};
+module.exports = Generator;

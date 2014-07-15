@@ -1,8 +1,9 @@
 language: node_js
 node_js:
   - '0.10'
-  - '0.8'
 before_install:
-  - currentfolder=${PWD##*/}
-  - if [ "$currentfolder" != 'generator-fng' ]; then cd .. && eval "mv $currentfolder generator-fng" && cd generator-fng; fi
-
+  - gem update --system
+  - gem install sass --version "=3.3.7"
+  - npm install -g bower grunt-cli
+  - cd test/fixtures && npm install && bower install && cd .. && cd ..
+services: mongodb
