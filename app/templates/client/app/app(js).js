@@ -1,19 +1,16 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>', [<%= angularModules %>])
-  <% if(filters.ngroute) { %>.config(function ($routeProvider, $locationProvider<% if(filters.auth) { %>, $httpProvider<% } %>) {
-    $routeProvider
-      .otherwise({
-        redirectTo: '/'
-      });
+  <% if(filters.ngroute) { %>.config(function (formRoutesProvider, $locationProvider<% if(filters.auth) { %>, $httpProvider<% } %>) {
+    formRoutesProvider.setRoutes([],'/');
 
-    $locationProvider.html5Mode(true);<% if(filters.auth) { %>
+  <% if(filters.auth) { %>
     $httpProvider.interceptors.push('authInterceptor');<% } %>
   })<% } %><% if(filters.uirouter) { %>.config(function ($stateProvider, $urlRouterProvider, $locationProvider<% if(filters.auth) { %>, $httpProvider<% } %>) {
     $urlRouterProvider
       .otherwise('/');
 
-    $locationProvider.html5Mode(true);<% if(filters.auth) { %>
+  <% if(filters.auth) { %>
     $httpProvider.interceptors.push('authInterceptor');<% } %>
   })<% } %><% if(filters.auth) { %>
 
@@ -53,3 +50,8 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
       });
     });
   })<% } %>;
+
+formsAngular.config(['urlServiceProvider', 'cssFrameworkServiceProvider', function (urlService, cssFrameworkService) {
+  urlService.setOptions({html5Mode: true});
+  cssFrameworkService.setOptions({framework: 'bs3'});
+}]);

@@ -1,12 +1,6 @@
-# AngularJS Full-Stack generator [![Build Status](https://travis-ci.org/DaftMonk/generator-fng.svg?branch=master)](http://travis-ci.org/DaftMonk/generator-fng)
+# forms-angular Generator 
 
-> Yeoman generator for creating MEAN stack applications, using MongoDB, Express, AngularJS, and Node - lets you quickly set up a project following best practices.
-
-## Example project
-
-Generated with defaults: http://fullstack-demo.herokuapp.com/. 
-
-Source code: https://github.com/DaftMonk/fullstack-demo
+Yeoman generator for creating forms-angular applications, using the MEAN stack of MongoDB, Express, AngularJS, and Node.
 
 ## Usage
 
@@ -29,7 +23,7 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 
 ## Prerequisites
 
-* MongoDB - Download and Install [MongoDB](http://www.mongodb.org/downloads) - If you plan on scaffolding your project with mongoose, you'll need mongoDB to be installed and have the `mongod` process running.
+* See the Prepare section of http://www.forms-angular.org/#!/get-started#prepare
 
 ## Supported Configurations
 

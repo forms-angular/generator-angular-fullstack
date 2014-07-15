@@ -22,13 +22,14 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     this.scriptAppName = this.appname + genUtils.appName(this);
     this.appPath = this.env.options.appPath;
     this.pkg = require('../package.json');
-
     this.filters = {};
   },
 
   info: function () {
     this.log(this.yeoman);
-    this.log('Out of the box I create an AngularJS app with an Express server.\n');
+    this.log(
+      'Out of the box I include Bootstrap, Mongoose and some AngularJS recommended modules.\n'
+    );
   },
 
   checkForConfig: function() {
@@ -79,26 +80,52 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         name: "stylesheet",
         default: 1,
         message: "What would you like to write stylesheets with?",
-        choices: [ "CSS", "Sass", "Stylus", "Less"],
+        choices: [ "CSS", "Sass", "Less"],
         filter: function( val ) { return val.toLowerCase(); }
-      },*/  {
+      },*/{
+      type: 'checkbox',
+      name: 'plugins',
+      message: 'Which plugins would you like to include?',
+      choices: [{
+        name: 'jQuery UI date picker',
+        value: 'uiDate',
+        dep: '\'ui.date\'',
+        jQueryUI: true,
+        checked: true
+      },{
+        name: 'Columnar reporting',
+        value: 'reports',
+        dep: '\'ngGrid\'',
+        jQueryUI: false,
+        checked: true
+      },{
+        name: 'Fully featured text / HTML editor',
+        value: 'ckeditor',
+        dep: '\'ngCkeditor\'',
+        jQueryUI: true,
+        checked: true
+      },{
+        name: 'Enhanced select control',
+        value: 'select2',
+        dep: '\'ui.select2\'',
+        jQueryUI: false,
+        checked: true
+      }
+//   ,{
+//     name: 'File uploader',
+//     value: 'jqUpload',
+//     dep: '"uploadModule"',
+//     jQueryUI: false,
+//     checked: true
+//    }
+      ]
+    },{
         type: "list",
         name: "router",
         default: 1,
         message: "What Angular router would you like to use?",
         choices: [ "ngRoute", "uiRouter"],
         filter: function( val ) { return val.toLowerCase(); }
-      }, {
-        type: "confirm",
-        name: "bootstrap",
-        message: "Would you like to include Bootstrap?"
-      }, {
-        type: "confirm",
-        name: "uibootstrap",
-        message: "Would you like to include UI Bootstrap?",
-        when: function (answers) {
-          return answers.bootstrap;
-        }
       }], function (answers) {
         //this.filters[answers.script] = true;
         this.filters['js'] = true;
@@ -107,9 +134,12 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         //this.filters[answers.stylesheet] = true;
         this.filters['css'] = true;
         this.filters[answers.router] = true;
-        this.filters['bootstrap'] = answers.bootstrap;
-        this.filters['uibootstrap'] =  answers.uibootstrap;
-      cb();
+        answers.plugins.forEach(function(chosenPlugins) {
+          // Enable these when plugins are ready.
+          //this.filters[chosenPlugins] = true;
+          //this.filters['jQueryUI'] = true;
+        }.bind(this));
+        cb();
       }.bind(this));
   },
 
@@ -120,17 +150,18 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
     this.log('\n# Server\n');
 
-    this.prompt([{
+    this.prompt([/*{
       type: "confirm",
       name: "mongoose",
       message: "Would you like to use mongoDB with Mongoose for data modeling?"
-    }, {
+    },*/{
       type: "confirm",
       name: "auth",
-      message: "Would you scaffold out an authentication boilerplate?",
+      message: "Would you scaffold out an authentication boilerplate?"/*,
       when: function (answers) {
-        return answers.mongoose;
-      }
+        //return answers.mongoose;
+        return true;
+      }*/
     }, {
       type: 'checkbox',
       name: 'oauth',
@@ -160,13 +191,15 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       name: "socketio",
       message: "Would you like to use socket.io?",
       // to-do: should not be dependent on mongoose
+      /*
       when: function (answers) {
         return answers.mongoose;
-      },
+      },*/
       default: true
     }], function (answers) {
       if(answers.socketio) this.filters['socketio'] = true;
-      if(answers.mongoose) this.filters['mongoose'] = true;
+      //if(answers.mongoose) this.filters['mongoose'] = true;
+      this.filters['mongoose'] = true;
       if(answers.auth) this.filters['auth'] = true;
       if(answers.oauth) {
         answers.oauth.forEach(function(oauthStrategy) {
@@ -223,20 +256,17 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
   },
 
   ngModules: function() {
-    this.filters = this._.defaults(this.config.get('filters'), {
-      bootstrap: true,
-      uibootstrap: true
-    });
-
+    this.filters = this.config.get('filters');
     var angModules = [
       "'ngCookies'",
+      "'formsAngular'",
       "'ngResource'",
-      "'ngSanitize'"
+      "'ngSanitize'",
+      "'ui.bootstrap'"
     ];
     if(this.filters['ngroute']) angModules.push("'ngRoute'");
     if(this.filters['socketio']) angModules.push("'btford.socket-io'");
     if(this.filters['uirouter']) angModules.push("'ui.router'");
-    if(this.filters['uibootstrap']) angModules.push("'ui.bootstrap'");
 
     this.angularModules = "\n  " + angModules.join(",\n  ") +"\n";
   },

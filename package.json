@@ -1,7 +1,7 @@
 {
   "name": "generator-fng",
-  "version": "2.0.4",
-  "description": "Yeoman generator for creating MEAN stack applications, using MongoDB, Express, AngularJS, and Node",
+  "version": "0.0.2",
+  "description": "Generate forms-angular applications for the MEAN stack",
   "keywords": [
     "yeoman-generator",
     "mean",
@@ -9,18 +9,20 @@
     "angularjs",
     "express",
     "scaffold",
+    "forms",
+    "forms-angular",
     "fullstack",
     "framework",
     "component",
     "front-end",
     "app"
   ],
-  "homepage": "https://github.com/DaftMonk/generator-angular-fullstack",
-  "bugs": "https://github.com/DaftMonk/generator-angular-fullstack/issues",
-  "author": "Tyler Henkel",
+  "homepage": "https://github.com/drake01/generator-angular-fullstack",
+  "bugs": "https://github.com/drake01/generator-angular-fullstack/issues",
+  "author": "Gulshan Kumar",
   "repository": {
     "type": "git",
-    "url": "git://github.com/DaftMonk/generator-angular-fullstack.git"
+    "url": "git://github.com/drake01/generator-angular-fullstack.git"
   },
   "scripts": {
     "test": "mocha"
