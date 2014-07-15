@@ -15,7 +15,7 @@ var Generator = module.exports = function Generator() {
     this.appname = path.basename(process.cwd());
   }
   this.appname = this._.slugify(this.appname);
-  this.filters = this.config.get('filters');
+  this.filters = this.config.get('filters') || {};
 };
 
 util.inherits(Generator, yeoman.generators.NamedBase);
@@ -81,7 +81,6 @@ Generator.prototype.herokuCreate = function herokuCreate() {
     var output = data.toString();
     this.log(output);
   }.bind(this));
-  child.stdin.write('\n\n');
 };
 
 Generator.prototype.copyProcfile = function copyProcfile() {
