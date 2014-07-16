@@ -142,9 +142,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         choices: [ "ngRoute", "uiRouter"],
         filter: function( val ) { return val.toLowerCase(); }
       }], function (answers) {
-      console.log(answers);
         this.filters[answers.framework] = true;
-      console.log(this.filters);
         //this.filters[answers.script] = true;
         this.filters['js'] = true;
         //this.filters[answers.markup] = true;
@@ -155,8 +153,8 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         answers.plugins.forEach(function(chosenPlugin) {
           this.filters[chosenPlugin] = true;
           if (!this.filters['jQueryUI']) {
-            var thisPlugin = _.find(pluginChoices, function(choice) {
-              return (choice.name == chosenPlugin);
+            var thisPlugin = this._.find(pluginChoices, function(choice) {
+              return (choice.value == chosenPlugin);
             });
             if (thisPlugin && thisPlugin.jQueryUI) {
               this.filters['jQueryUI'] = true;
