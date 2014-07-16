@@ -2,7 +2,9 @@
 
 angular.module('<%= scriptAppName %>', [<%= angularModules %>])
   <% if(filters.ngroute) { %>.config(function (formRoutesProvider, $locationProvider<% if(filters.auth) { %>, $httpProvider<% } %>) {
-    formRoutesProvider.setRoutes([],'/');
+    formRoutesProvider.setRoutes([
+
+    ],'/');
 
   <% if(filters.auth) { %>
     $httpProvider.interceptors.push('authInterceptor');<% } %>
