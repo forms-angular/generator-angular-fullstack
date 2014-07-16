@@ -134,14 +134,15 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       name: 'plugins',
       message: 'Which plugins would you like to include?',
       choices: pluginChoices
-    },{
-        type: "list",
-        name: "router",
-        default: 0,
-        message: "What Angular router would you like to use?",
-        choices: [ "ngRoute", "uiRouter"],
-        filter: function( val ) { return val.toLowerCase(); }
-      }], function (answers) {
+//    },{
+//        type: "list",
+//        name: "router",
+//        default: 0,
+//        message: "What Angular router would you like to use?",
+//        choices: [ "ngRoute", "uiRouter"],
+//        filter: function( val ) { return val.toLowerCase(); }
+      }
+    ], function (answers) {
         this.filters[answers.framework] = true;
         //this.filters[answers.script] = true;
         this.filters['js'] = true;
@@ -149,7 +150,8 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         this.filters['html'] = true;
         //this.filters[answers.stylesheet] = true;
         this.filters['css'] = true;
-        this.filters[answers.router] = true;
+//        this.filters[answers.router] = true;
+        this.filters['ngroute'] = true;
         answers.plugins.forEach(function(chosenPlugin) {
           this.filters[chosenPlugin] = true;
           if (!this.filters['jQueryUI']) {
