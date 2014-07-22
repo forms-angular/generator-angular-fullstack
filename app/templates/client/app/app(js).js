@@ -52,6 +52,6 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
   })<% } %>;
 
   formsAngular.config(['cssFrameworkServiceProvider', 'routingServiceProvider', function (cssFrameworkService, routingService) {
-      routingService.start({html5Mode: true, routing: '<% if(filters.ngroute) { %>ngroute<% } %><% if(filters.uirouter) { %>uirouter<% } %>'});
+      routingService.start({html5Mode: true, prefix:'/data', routing: '<% if(filters.ngroute) { %>ngroute<% } %><% if(filters.uirouter) { %>uirouter<% } %>'});
       cssFrameworkService.setOptions({framework: '<% if(filters.bs3) { %>bs3<% } %><% if(filters.bs2) { %>bs2<% } %>'});
       }]);
