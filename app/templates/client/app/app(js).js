@@ -1,10 +1,8 @@
 'use strict';
 
 angular.module('<%= scriptAppName %>', [<%= angularModules %>])
-  <% if(filters.ngroute) { %>.config(function (formRoutesProvider, $locationProvider<% if(filters.auth) { %>, $httpProvider<% } %>) {
-    formRoutesProvider.setRoutes([
-
-    ],'/');
+  <% if(filters.ngroute) { %>.config(function ($routeProvider<% if(filters.auth) { %>, $httpProvider<% } %>) {
+    $routeProvider.otherwise({redirectTo: '/'});
 
   <% if(filters.auth) { %>
     $httpProvider.interceptors.push('authInterceptor');<% } %>
@@ -53,7 +51,7 @@ angular.module('<%= scriptAppName %>', [<%= angularModules %>])
     });
   })<% } %>;
 
-formsAngular.config(['urlServiceProvider', 'cssFrameworkServiceProvider', function (urlService, cssFrameworkService) {
-  urlService.setOptions({html5Mode: true});
-  cssFrameworkService.setOptions({framework: '<% if(filters.bs3) { %>bs3<% } %><% if(filters.bs2) { %>bs2<% } %>'});
-}]);
+  formsAngular.config(['cssFrameworkServiceProvider', 'routingServiceProvider', function (cssFrameworkService, routingService) {
+      routingService.start({html5Mode: true, routing: '<% if(filters.ngroute) { %>ngroute<% } %><% if(filters.uirouter) { %>uirouter<% } %>'});
+      cssFrameworkService.setOptions({framework: '<% if(filters.bs3) { %>bs3<% } %><% if(filters.bs2) { %>bs2<% } %>'});
+      }]);

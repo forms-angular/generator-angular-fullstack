@@ -74,7 +74,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         type: "confirm",
         name: "skipConfig",
         message: "Existing .yo-rc configuration found, would you like to use it?",
-        default: true,
+        default: true
       }], function (answers) {
         this.skipConfig = answers.skipConfig;
         cb();
@@ -134,13 +134,13 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       name: 'plugins',
       message: 'Which plugins would you like to include?',
       choices: pluginChoices
-//    },{
-//        type: "list",
-//        name: "router",
-//        default: 0,
-//        message: "What Angular router would you like to use?",
-//        choices: [ "ngRoute", "uiRouter"],
-//        filter: function( val ) { return val.toLowerCase(); }
+    },{
+        type: "list",
+        name: "router",
+        default: 0,
+        message: "What Angular router would you like to use?",
+        choices: [ "ngRoute", "uiRouter"],
+        filter: function( val ) { return val.toLowerCase(); }
       }
     ], function (answers) {
         this.filters[answers.framework] = true;
@@ -150,8 +150,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         this.filters['html'] = true;
         //this.filters[answers.stylesheet] = true;
         this.filters['css'] = true;
-//        this.filters[answers.router] = true;
-        this.filters['ngroute'] = true;
+        this.filters[answers.router] = true;
         answers.plugins.forEach(function(chosenPlugin) {
           this.filters[chosenPlugin] = true;
           if (!this.filters['jQueryUI']) {
@@ -288,9 +287,9 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       "'ngSanitize'",
       "'ui.bootstrap'"
     ];
-    if(this.filters['ngroute']) angModules.push("'ngRoute'");
+    if(this.filters['ngroute']) angModules.unshift("'ngRoute'");     // routing options need to precede formsangular
     if(this.filters['socketio']) angModules.push("'btford.socket-io'");
-    if(this.filters['uirouter']) angModules.push("'ui.router'");
+    if(this.filters['uirouter']) angModules.unshift("'ui.router'");
 
     pluginChoices.forEach(function(plugin) {
       if (this.filters[plugin.value])

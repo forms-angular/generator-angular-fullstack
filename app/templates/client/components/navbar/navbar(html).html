@@ -13,7 +13,7 @@
                 <span class="glyphicon glyphicon-bar icon-bar"></span>
             </button>
             <div class="pull-left">
-                <a class="navbar-brandpluslogo brandpluslogo" ng-href="{{buildUrl('index')}}">
+                <a class="navbar-brandpluslogo brandpluslogo" href="/">
                     <a href="/" class="navbar-brand"><%= _.slugify(_.humanize(appname)) %></a>
                 </a>
             </div>
@@ -26,9 +26,9 @@
                     </li>
                     <li class="dropdown"><a class="dropdown-toggle">Applicants</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-option" href="applicant/new">New</a></li>
-                            <li><a class="dropdown-option" href="applicant">Listing</a></li>
-                            <% if(filters.reports) { %><li><a class="dropdown-option" href="analyse/applicant">Basic Report</a></li><% } %>
+                            <li><a class="dropdown-option" href="data/applicant/new">New</a></li>
+                            <li><a class="dropdown-option" href="data/applicant">Listing</a></li>
+                            <% if(filters.reports) { %><li><a class="dropdown-option" href="data/analyse/applicant">Basic Report</a></li><% } %>
                         </ul>
                     </li>
                     <% if(filters.auth) { %><li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a></li><% } %>

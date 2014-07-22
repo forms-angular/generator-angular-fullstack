@@ -113,6 +113,7 @@ function processDirectory (self, source, destination) {
       filteredFile.name = filteredFile.name.replace('name', self.name);
     }
     var name = filteredFile.name;
+    console.log(name);
     var copy = false, stripped;
 
     src = path.join(root, f);
