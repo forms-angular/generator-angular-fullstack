@@ -1,6 +1,6 @@
 {
   "name": "generator-fng",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Generate forms-angular applications for the MEAN stack",
   "keywords": [
     "yeoman-generator",
