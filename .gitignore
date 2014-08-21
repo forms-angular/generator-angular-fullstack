@@ -5,3 +5,5 @@ test/UpperCaseBug
 .idea
 .DS_Store
 release.txt
+.idea
+*.log

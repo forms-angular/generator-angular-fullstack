@@ -31,14 +31,13 @@ var pluginChoices = [{
   dep: '\'ui.select2\'',
   jQueryUI: false,
   checked: true
+},{
+ name: 'File uploader',
+ value: 'jqUpload',
+ dep: '\'uploadModule\'',
+ jQueryUI: false,
+ checked: true
 }
-//   ,{
-//     name: 'File uploader',
-//     value: 'jqUpload',
-//     dep: '"uploadModule"',
-//     jQueryUI: false,
-//     checked: true
-//    }
 ];
 
 var AngularFullstackGenerator = yeoman.generators.Base.extend({

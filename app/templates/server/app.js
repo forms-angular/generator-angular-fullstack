@@ -37,7 +37,7 @@ var DataFormHandler = new (formsAngular)(app, {
 fs.readdirSync(modelsPath).forEach(function (file) {
   var fname = modelsPath + '/' + file;
   if (fs.statSync(fname).isFile()) {
-    DataFormHandler.addResource(file.slice(0, -3), require(fname));
+    DataFormHandler.newResource(require(fname));
     }
   });
 
