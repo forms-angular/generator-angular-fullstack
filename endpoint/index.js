@@ -14,11 +14,22 @@ util.inherits(Generator, ScriptBase);
 Generator.prototype.askFor = function askFor() {
   var done = this.async();
   var name = this.name;
+
+  var base = this.config.get('routesBase') || '/api/';
+  if(base.charAt(base.length-1) !== '/') {
+    base = base + '/';
+  }
+
+  // pluralization defaults to true for backwards compat
+  if (this.config.get('pluralizeRoutes') !== false) {
+    name = name + 's';
+  }
+
   var prompts = [
     {
       name: 'route',
       message: 'What will the url of your endpoint to be?',
-      default: '/api/' + name + 's'
+      default: base + name
     }
   ];
 
@@ -34,26 +45,26 @@ Generator.prototype.askFor = function askFor() {
 
 Generator.prototype.registerEndpoint = function registerEndpoint() {
   if(this.config.get('insertRoutes')) {
-    var config = {
+    var routeConfig = {
       file: this.config.get('registerRoutesFile'),
       needle: this.config.get('routesNeedle'),
       splicable: [
         "app.use(\'" + this.route +"\', require(\'./api/" + this.name + "\'));"
       ]
     };
-    ngUtil.rewriteFile(config);
+    ngUtil.rewriteFile(routeConfig);
   }
 
   if (this.filters.socketio) {
     if(this.config.get('insertSockets')) {
-      var config = {
+      var socketConfig = {
         file: this.config.get('registerSocketsFile'),
         needle: this.config.get('socketsNeedle'),
         splicable: [
           "require(\'../api/" + this.name + '/' + this.name + ".socket\').register(socket);"
         ]
       };
-      ngUtil.rewriteFile(config);
+      ngUtil.rewriteFile(socketConfig);
     }
   }
 };

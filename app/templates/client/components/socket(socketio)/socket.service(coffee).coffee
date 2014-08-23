@@ -1,23 +1,17 @@
-# global io 
+# global io
 
 'use strict'
 
-angular.module('<%= scriptAppName %>').factory 'socket', (socketFactory) ->
-  retryInterval = 5000
-  retryTimer = undefined
-  clearInterval retryTimer
-  ioSocket = io.connect('',
-    'force new connection': true
-    'max reconnection attempts': Infinity
-    'reconnection limit': 10 * 1000
-    # Send auth token on connection
+angular.module '<%= scriptAppName %>'
+.factory 'socket', (socketFactory) ->
+
+  # socket.io now auto-configures its connection when we omit a connection url
+  ioSocket = io '',
+    # Send auth token on connection, you will need to DI the Auth service above
     # 'query': 'token=' + Auth.getToken()
-  )
-  
-  retryTimer = setInterval(->
-    ioSocket.connect()  if not ioSocket.socket.connected and not ioSocket.socket.connecting and not ioSocket.socket.reconnecting
-  , retryInterval)
-  socket = socketFactory(ioSocket: ioSocket)
+    path: '/socket.io-client'
+
+  socket = socketFactory ioSocket: ioSocket
 
   socket: socket
 
@@ -29,19 +23,18 @@ angular.module('<%= scriptAppName %>').factory 'socket', (socketFactory) ->
 
   @param {String} modelName
   @param {Array} array
-  @param {Function} cb
+  @param {Function} callback
   ###
-  syncUpdates: (modelName, array, cb) ->
-    cb = cb or angular.noop
+  syncUpdates: (modelName, array, callback) ->
 
     ###
     Syncs item creation/updates on 'model:save'
     ###
     socket.on modelName + ':save', (item) ->
-      oldItem = _.find(array,
+      oldItem = _.find array,
         _id: item._id
-      )
-      index = array.indexOf(oldItem)
+
+      index = array.indexOf oldItem
       event = 'created'
 
       # replace oldItem if it exists
@@ -51,7 +44,8 @@ angular.module('<%= scriptAppName %>').factory 'socket', (socketFactory) ->
         event = 'updated'
       else
         array.push item
-      cb event, item, array
+
+      callback? event, item, array
 
     ###
     Syncs removed items on 'model:remove'
@@ -61,7 +55,7 @@ angular.module('<%= scriptAppName %>').factory 'socket', (socketFactory) ->
       _.remove array,
         _id: item._id
 
-      cb event, item, array
+      callback? event, item, array
 
   ###
   Removes listeners for a models updates on the socket

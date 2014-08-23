@@ -76,6 +76,16 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         default: true
       }], function (answers) {
         this.skipConfig = answers.skipConfig;
+
+        // NOTE: temp(?) fix for #403
+        if(typeof this.oauth==='undefined') {
+          var strategies = Object.keys(this.filters).filter(function(key) {
+            return key.match(/Auth$/) && key;
+          });
+
+          if(strategies.length) this.config.set('oauth', true);
+        }
+
         cb();
       }.bind(this));
     } else {
@@ -143,21 +153,18 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       }
     ], function (answers) {
         this.filters[answers.framework] = true;
-        //this.filters[answers.script] = true;
-        this.filters['js'] = true;
-        //this.filters[answers.markup] = true;
-        this.filters['html'] = true;
-        //this.filters[answers.stylesheet] = true;
-        this.filters['css'] = true;
+        this.filters.js = true;
+        this.filters.html = true;
+        this.filters.css = true;
         this.filters[answers.router] = true;
         answers.plugins.forEach(function(chosenPlugin) {
           this.filters[chosenPlugin] = true;
-          if (!this.filters['jQueryUI']) {
+          if (!this.filters.jQueryUI) {
             var thisPlugin = this._.find(pluginChoices, function(choice) {
               return (choice.value == chosenPlugin);
             });
             if (thisPlugin && thisPlugin.jQueryUI) {
-              this.filters['jQueryUI'] = true;
+              this.filters.jQueryUI = true;
             }
           }
         }.bind(this));
@@ -219,11 +226,11 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       },*/
       default: true
     }], function (answers) {
-      if(answers.socketio) this.filters['socketio'] = true;
-      //if(answers.mongoose) this.filters['mongoose'] = true;
-      this.filters['mongoose'] = true;
-      if(answers.auth) this.filters['auth'] = true;
+      if(answers.socketio) this.filters.socketio = true;
+      this.filters.mongoose = true;
+      if(answers.auth) this.filters.auth = true;
       if(answers.oauth) {
+        if(answers.oauth.length) this.filters.oauth = true;
         answers.oauth.forEach(function(oauthStrategy) {
           this.filters[oauthStrategy] = true;
         }.bind(this));
@@ -239,6 +246,9 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     this.config.set('registerRoutesFile', 'server/routes.js');
     this.config.set('routesNeedle', '// Insert routes below');
 
+    this.config.set('routesBase', '/api/');
+    this.config.set('pluralizeRoutes', true);
+
     this.config.set('insertSockets', true);
     this.config.set('registerSocketsFile', 'server/config/socketio.js');
     this.config.set('socketsNeedle', '// Insert sockets below');
@@ -253,16 +263,16 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
     var extensions = [];
     var filters = [];
 
-    if(this.filters['ngroute']) filters.push('ngroute');
-    if(this.filters['uirouter']) filters.push('uirouter');
-    if(this.filters['coffee']) extensions.push('coffee');
-    if(this.filters['js']) extensions.push('js');
-    if(this.filters['html']) extensions.push('html');
-    if(this.filters['jade']) extensions.push('jade');
-    if(this.filters['css']) extensions.push('css');
-    if(this.filters['stylus']) extensions.push('styl');
-    if(this.filters['sass']) extensions.push('scss');
-    if(this.filters['less']) extensions.push('less');
+    if(this.filters.ngroute) filters.push('ngroute');
+    if(this.filters.uirouter) filters.push('uirouter');
+    if(this.filters.coffee) extensions.push('coffee');
+    if(this.filters.js) extensions.push('js');
+    if(this.filters.html) extensions.push('html');
+    if(this.filters.jade) extensions.push('jade');
+    if(this.filters.css) extensions.push('css');
+    if(this.filters.stylus) extensions.push('styl');
+    if(this.filters.sass) extensions.push('scss');
+    if(this.filters.less) extensions.push('less');
 
     this.composeWith('ng-component', {
       options: {
@@ -286,9 +296,9 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
       "'ngSanitize'",
       "'ui.bootstrap'"
     ];
-    if(this.filters['ngroute']) angModules.unshift("'ngRoute'");     // routing options need to precede formsangular
-    if(this.filters['socketio']) angModules.push("'btford.socket-io'");
-    if(this.filters['uirouter']) angModules.unshift("'ui.router'");
+    if(this.filters.ngroute) angModules.unshift("'ngRoute'");     // routing options need to precede formsangular
+    if(this.filters.socketio) angModules.push("'btford.socket-io'");
+    if(this.filters.uirouter) angModules.unshift("'ui.router'");
 
     pluginChoices.forEach(function(plugin) {
       if (this.filters[plugin.value])

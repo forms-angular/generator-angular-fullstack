@@ -17,7 +17,7 @@ describe('fng generator', function () {
     auth: true,
     oauth: [],
     socketio: true
-  };
+  }, dependenciesInstalled = false;
 
   function generatorTest(generatorType, name, mockPrompt, callback) {
     gen.run({}, function () {
@@ -53,37 +53,13 @@ describe('fng generator', function () {
     }.bind(this));
   });
 
-  it('should generate expected files', function (done) {
-    helpers.mockPrompt(gen, defaultOptions);
-
-    gen.run({}, function () {
-      helpers.assertFile([
-        'client/.htaccess',
-        'client/favicon.ico',
-        'client/robots.txt',
-        'client/app/main/main.scss',
-        'client/app/main/main.html',
-        'client/index.html',
-        'client/.jshintrc',
-        'client/assets/images/yeoman.png',
-        '.bowerrc',
-        '.editorconfig',
-        '.gitignore',
-        'Gruntfile.js',
-        'package.json',
-        'bower.json',
-        'server/app.js',
-        'server/config/express.js',
-        'server/api/thing/index.js']);
-      done();
-    });
-  });
-
   describe('running app', function() {
+;
     beforeEach(function() {
       this.timeout(20000);
-      fs.copySync(__dirname + '/fixtures/node_modules', __dirname + '/temp/node_modules');
-      fs.copySync(__dirname +'/fixtures/bower_components', __dirname +'/temp/client/bower_components');
+      fs.mkdirSync(__dirname + '/temp/client');
+      fs.symlinkSync(__dirname + '/fixtures/node_modules', __dirname + '/temp/node_modules');
+      fs.symlinkSync(__dirname +'/fixtures/bower_components', __dirname +'/temp/client/bower_components');
     });
 
     describe('with default options', function() {
@@ -157,7 +133,7 @@ describe('fng generator', function () {
 //      });
     });
 
-    describe('with other preprocessors', function() {
+    describe('with other preprocessors and oauth', function() {
       beforeEach(function() {
         helpers.mockPrompt(gen, {
           script: 'coffee',
@@ -166,7 +142,7 @@ describe('fng generator', function () {
           router: 'uirouter',
           mongoose: true,
           auth: true,
-          oauth: [],
+          oauth: ['twitterAuth', 'facebookAuth', 'googleAuth'],
           socketio: true
         });
       });
@@ -204,7 +180,7 @@ describe('fng generator', function () {
     });
 
     describe('with other preprocessors and no server options', function() {
-      beforeEach(function() {
+      beforeEach(function(done) {
         helpers.mockPrompt(gen, {
           script: 'coffee',
           markup: 'jade',
@@ -215,6 +191,7 @@ describe('fng generator', function () {
           oauth: [],
           socketio: false
         });
+        done();
       });
 
       it('should run client tests successfully', function(done) {
@@ -250,7 +227,7 @@ describe('fng generator', function () {
     });
 
     describe('with no preprocessors and no server options', function() {
-      beforeEach(function() {
+      beforeEach(function(done) {
         helpers.mockPrompt(gen, {
           script: 'js',
           markup: 'html',
@@ -261,6 +238,7 @@ describe('fng generator', function () {
           oauth: [],
           socketio: false
         });
+        done();
       });
 
       it('should run client tests successfully', function(done) {
@@ -294,6 +272,31 @@ describe('fng generator', function () {
         });
       });
 
+      it('should generate expected files', function (done) {
+        helpers.mockPrompt(gen, defaultOptions);
+
+        gen.run({}, function () {
+          helpers.assertFile([
+            'client/.htaccess',
+            'client/favicon.ico',
+            'client/robots.txt',
+            'client/app/main/main.scss',
+            'client/app/main/main.html',
+            'client/index.html',
+            'client/.jshintrc',
+            'client/assets/images/yeoman.png',
+            '.bowerrc',
+            '.editorconfig',
+            '.gitignore',
+            'Gruntfile.js',
+            'package.json',
+            'bower.json',
+            'server/app.js',
+            'server/config/express.js',
+            'server/api/thing/index.js']);
+          done();
+        });
+      });
     });
   });
 });

@@ -1,5 +1,5 @@
-@import "bootstrap/dist/css/bootstrap.css"
 @import "font-awesome/css/font-awesome.css"
+<% if(filters.bootstrap) { %>@import "bootstrap/dist/css/bootstrap.css"
 
 //
 // Bootstrap Fonts
@@ -12,7 +12,7 @@
     url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.woff') format('woff'),
     url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
     url('../bower_components/bootstrap/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
-
+<% } %>
 //
 // Font Awesome Fonts
 //
@@ -27,21 +27,21 @@
   font-weight: normal
   font-style: normal
 
-// 
+//
 // App-wide Styles
-// 
+//
 
 .browsehappy
     background #ccc
     color #000
     margin 0.2em 0
     padding 0.2em 0
-
+<% if (!filters.bootstrap) { %>
 // Responsive: Portrait tablets and up
 @media screen and (min-width: 768px)
     .container
         max-width 730px
-
+<% } %>
 // Component styles are injected through grunt
 // injector
 @import "account/login/login"
