@@ -4,7 +4,7 @@
   "dependencies": {
     "angular": "1.3.0-rc.1",
     "json3": "~3.3.1",
-    "forms-angular": "^0.4.0-alpha.3",
+    "forms-angular": "^0.4.0-beta.1",
     "angular-ui-bootstrap-bower": ">=0.8.0",
     "angular-sanitize": "1.3.0-rc.1",
     "underscore": "1.6",
