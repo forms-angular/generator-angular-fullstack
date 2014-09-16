@@ -24,8 +24,7 @@
     "passport-local": "~0.1.6",<% } %><% if(filters.facebookAuth) { %>
     "passport-facebook": "latest",<% } %><% if(filters.twitterAuth) { %>
     "passport-twitter": "latest",<% } %><% if(filters.googleAuth) { %>
-    "passport-google-oauth": "latest",<% } %><% if(filters.reports) { %>
-    "fng-reports": "latest",<% } %>
+    "passport-google-oauth": "latest",<% } %>
     "composable-middleware": "^0.3.0",
     "connect-mongo": "^0.4.1"<% if(filters.socketio) { %>,
     "socket.io": "^1.0.6",
