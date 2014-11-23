@@ -18,6 +18,13 @@ var ApplicantSchema = new Schema({
   status: {type: String, default:'Pending', enum:['Pending','Rejected','Shortlist']<% if(filters.select2) { %>, form: {select2: {}}<% } %>}
 });
 
-var Applicant = mongoose.model('Applicant', ApplicantSchema);
+var Applicant;
+var modelName = 'Applicant';
+
+try {
+  Applicant = mongoose.model(modelName);
+} catch(e) {
+  Applicant = mongoose.model(modelName, ApplicantSchema);
+}
 
 module.exports = Applicant;
