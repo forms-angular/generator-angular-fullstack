@@ -88,7 +88,7 @@ Generates a new API endpoint.
 Example:
 ```bash
 yo fng:endpoint message
-[?] What will the url of your endpoint to be? /api/messages
+[?] What will the url of your endpoint be? /api/messages
 ```
 
 Produces:
