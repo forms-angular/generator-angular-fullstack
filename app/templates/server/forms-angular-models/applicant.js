@@ -15,7 +15,7 @@ var ApplicantSchema = new Schema({
   dateOfBirth: {type:Date}<% } %><% if(filters.jqUpload) { %>,
   photo: {type: [uploadSchema], form: {directive: 'fng-jq-upload-form', add:{autoUpload:true, sizeLimit:50000000}}}<% } %><% if(filters.ckeditor) { %>,
   whyApplied: {type: String, form: {type: 'textarea', editor: 'ckEditor'}}<% } %>,
-  status: {type: String, default:'Pending', enum:['Pending','Rejected','Shortlist']<% if(filters.select2) { %>, form: {select2: {}}<% } %>}
+  status: {type: String, default:'Pending', enum:['Pending','Rejected','Shortlist']<% if(filters.select2) { %>, form: {select2: {}}<% } %><% if(filters.uiSelect) { %>, form: {size: 'small', directive: 'fng-ui-select', fngUiSelect:{theme: "bootstrap"}}<% } %>}
 });
 
 var Applicant;

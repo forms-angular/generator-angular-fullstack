@@ -27,8 +27,8 @@ var pluginChoices = [{
   checked: true
 },{
   name: 'Enhanced select control',
-  value: 'select2',
-  dep: '\'ui.select2\'',
+  value: 'uiSelect',
+  dep: '\'fng.uiSelect\'',
   jQueryUI: false,
   checked: true
 },{
