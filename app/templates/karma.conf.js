@@ -13,6 +13,10 @@ module.exports = function(config) {
     files: [
       'client/bower_components/jquery/dist/jquery.js',
       'client/bower_components/angular/angular.js',
+      'client/bower_components/forms-angular/dist/forms-angular.js',
+      'client/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
+      'client/bower_components/angular-elastic/elastic.js',
+      'client/bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js',
       'client/bower_components/angular-mocks/angular-mocks.js',
       'client/bower_components/angular-resource/angular-resource.js',
       'client/bower_components/angular-cookies/angular-cookies.js',
@@ -21,23 +25,26 @@ module.exports = function(config) {
       'client/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',<% } %>
       'client/bower_components/lodash/dist/lodash.compat.js',<% if(filters.socketio) { %>
       'client/bower_components/angular-socket-io/socket.js',<% } %><% if(filters.uirouter) { %>
-      'client/bower_components/angular-ui-router/release/angular-ui-router.js',<% } %>
+      'client/bower_components/angular-ui-router/release/angular-ui-router.js',<% } %><% if (filters.uiDate) { %>
+      'client/bower_components/angular-ui-date/src/date.js',<% } %><% if (filters.jqUpload) { %>
+      'client/bower_components/blueimp-file-upload/js/vendor/jquery.ui.widget.js',
+      'client/bower_components/blueimp-file-upload/js/jquery.fileupload.js',
+      'client/bower_components/blueimp-file-upload/js/jquery.fileupload-angular.js',
+      'client/bower_components/fng-jq-upload/dist/fng-jq-upload.js',<% } %><% if (filters.reports) { %>
+      'client/bower_components/ng-grid/build/ng-grid.min.js',<% } %><% if (filters.ckeditor) { %>
+      'client/bower_components/ckeditor/ckeditor.js',
+      'client/bower_components/ng-ckeditor/ng-ckeditor.js',<% } %><% if (filters.uiSelect) { %>
+      'client/bower_components/angular-ui-select/dist/select.js',
+      'client/bower_components/fng-ui-select/src/fng-ui-select.js',<% } %>
       'client/app/app.js',
-      'client/app/app.coffee',
       'client/app/**/*.js',
-      'client/app/**/*.coffee',
       'client/components/**/*.js',
-      'client/components/**/*.coffee',
-      'client/app/**/*.jade',
-      'client/components/**/*.jade',
       'client/app/**/*.html',
       'client/components/**/*.html'
     ],
 
     preprocessors: {
-      '**/*.jade': 'ng-jade2js',
-      '**/*.html': 'html2js',
-      '**/*.coffee': 'coffee',
+      '**/*.html': 'html2js'
     },
 
     ngHtml2JsPreprocessor: {
