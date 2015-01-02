@@ -502,10 +502,10 @@ module.exports = function (grunt) {
       options: {
         configFile: 'protractor.conf.js'
       },
-      chrome: {
+      firefox: {
         options: {
           args: {
-            browser: 'chrome'
+            browser: 'firefox'
           }
         }
       }
