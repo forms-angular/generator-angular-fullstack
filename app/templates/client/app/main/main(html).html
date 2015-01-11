@@ -5,7 +5,11 @@
     <h1>'Allo, 'Allo!</h1>
     <p class="lead">
     Always a pleasure scaffolding your apps.<br />
-    Speaking of apps, I have taken the liberty of creating a database of applicants for the under-butler position and adding it to the menu above.
+    Speaking of apps, I have taken the liberty of creating a database of applicants for the under-butler position and adding it to the menu above
+<% if(filters.auth) { %>
+      (it only displays when you are logged in).</p>
+    <p class="lead">      .
+<% } %>
     Kick-start your next web app with yeoman and forms-angular</p>
     <img src="assets/images/yeoman.png" alt="I'm Yeoman">
   </div>

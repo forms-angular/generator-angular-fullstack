@@ -14,6 +14,9 @@ var path = require('path');
 var formsAngular = require('forms-angular');
 var errors = require('./components/errors');
 var config = require('./config/environment');
+<% if(filters.auth) { %>
+  var auth = require('./auth/auth.service');
+<% } %>
 <% if (filters.mongoose) { %>
 // Connect to database
 mongoose.connect(config.mongo.uri, config.mongo.options);
@@ -33,8 +36,8 @@ require('./config/express')(app);
 require('./routes')(app);
 
 var DataFormHandler = new (formsAngular)(app, {
-  urlPrefix: '/api/' <% if(filters.jqUpload) { %>, JQMongoFileUploader: {} <% } %>
-  });
+  urlPrefix: '/api/' <% if(filters.jqUpload) { %>, JQMongoFileUploader: {} <% } %><% if(filters.auth) { %> , authentication: auth.isAuthenticated()<% } %>
+});
 
   var modelsPath = path.join(__dirname, 'forms-angular-models');
 fs.readdirSync(modelsPath).forEach(function (file) {
