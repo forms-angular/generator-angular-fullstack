@@ -27,8 +27,13 @@ var pluginChoices = [{
   checked: true
 },{
   name: 'Enhanced select control',
-  value: 'uiSelect',
-  dep: '\'fng.uiSelect\'',
+  value : 'select2',
+  dep: '\'ui.select2\'',
+
+  // After ui-select is published, then
+  // value: 'uiSelect',
+  // dep:  '\'fng.uiSelect\'',
+
   jQueryUI: false,
   checked: true
 },{
@@ -126,7 +131,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         message: "What would you like to write stylesheets with?",
         choices: [ "CSS", "Sass", "Less"],
         filter: function( val ) { return val.toLowerCase(); }
-      },*/{
+      },{
       type: "list",
       name: "framework",
       message: "Which CSS framework would you like to use?",
@@ -138,7 +143,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         }
         return retVal;
       }
-    },{
+    }, */{
       type: 'checkbox',
       name: 'plugins',
       message: 'Which plugins would you like to include?',
@@ -152,20 +157,26 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         filter: function( val ) { return val.toLowerCase(); }
       }
     ], function (answers) {
+        answers.framework = 'bs3';
         this.filters[answers.framework] = true;
         this.filters.js = true;
         this.filters.html = true;
         this.filters.css = true;
         this.filters[answers.router] = true;
         answers.plugins.forEach(function(chosenPlugin) {
-          this.filters[chosenPlugin] = true;
-          if (!this.filters.jQueryUI) {
-            var thisPlugin = this._.find(pluginChoices, function(choice) {
-              return (choice.value == chosenPlugin);
-            });
-            if (thisPlugin && thisPlugin.jQueryUI) {
-              this.filters.jQueryUI = true;
-            }
+          var thisPlugin = this._.find(pluginChoices, function(choice) {
+            return (choice.value == chosenPlugin);
+          });
+          if (!thisPlugin) { throw new Error("Plugin inconsistency"); }
+          if (thisPlugin.values) {
+            var offset = (answers.framework === 'bs2') ? 0 : 1;
+            this.filters[thisPlugin.values[offset]] = true;
+            thisPlugin.dep = thisPlugin.deps[offset]
+          } else {
+            this.filters[chosenPlugin] = true;
+          }
+          if (thisPlugin.jQueryUI) {
+            this.filters.jQueryUI = true;
           }
         }.bind(this));
         cb();
