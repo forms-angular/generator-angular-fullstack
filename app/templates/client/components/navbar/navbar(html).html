@@ -27,8 +27,8 @@
                         </ul>
                     </li>
                     <% if(filters.auth) { %><li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a></li><% } %>
-                    <li ng-show="items.length > 0" class="dropdown">
-                        <a class="dropdown-toggle">
+                    <li ng-show="items.length > 0" dropdown class="dropdown">
+                        <a dropdown-toggle class="dropdown-toggle">
                             {{contextMenu}}
                         </a>
                         <ul class="dropdown-menu">
