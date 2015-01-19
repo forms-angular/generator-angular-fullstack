@@ -35,7 +35,9 @@ module.exports = function(config) {
       'client/bower_components/ckeditor/ckeditor.js',
       'client/bower_components/ng-ckeditor/ng-ckeditor.js',<% } %><% if (filters.uiSelect) { %>
       'client/bower_components/angular-ui-select/dist/select.js',
-      'client/bower_components/fng-ui-select/src/fng-ui-select.js',<% } %>
+      'client/bower_components/fng-ui-select/src/fng-ui-select.js',<% } %><% if (filters.select2) { %>
+      'client/bower_components/select2/select2.js',
+      'client/bower_components/angular-ui-select2/src/select2.js',<% } %>
       'client/app/app.js',
       'client/app/**/*.js',
       'client/components/**/*.js',
