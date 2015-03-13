@@ -38,6 +38,9 @@
     padding: 0.2em 0;
 }
 
+body {
+  padding-top: 40px;
+}
 
 .navbar-default form {
     border-color: inherited;

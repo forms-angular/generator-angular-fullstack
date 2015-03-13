@@ -1,5 +1,11 @@
 Check http://github.com/DaftMonk/generator-angular-fullstack for the upstream changes
 
+<a name="v0.2.4"></a>
+### v0.2.4 (2015-03-13)   (upstream - v2.0.13 0994fcba8859e7b291f4de1ee45c9b5cdde3a4d1)
+
+* Demonstrates authentication
+* Slight improvements to styling
+
 <a name="v0.2.3"></a>
 ### v0.2.3 (2015-01-19)   (upstream - v2.0.13)
 

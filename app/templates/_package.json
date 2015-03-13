@@ -10,7 +10,7 @@
     "serve-favicon": "~2.0.1",
     "cookie-parser": "~1.0.1",
     "express-session": "~1.0.2",
-    "forms-angular": "^0.4.0",
+    "forms-angular": "^0.4.1",
     "errorhandler": "~1.0.0",
     "compression": "~1.0.1",
     "lodash": "~2.4.1",<% if (filters.jqUpload) { %>
