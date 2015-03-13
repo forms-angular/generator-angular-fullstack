@@ -7,4 +7,4 @@ client/bower_components
 dist
 /server/config/local.env.js
 .idea
-*.log
+npm-debug.log
