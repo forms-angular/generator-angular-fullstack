@@ -29,17 +29,7 @@
           <% if(filters.auth) { %>
           <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a></li>
           <% } %>
-          <li ng-show="items.length > 0" dropdown class="dropdown">
-            <a dropdown-toggle class="dropdown-toggle">
-              {{contextMenu}}
-            </a>
-            <ul class="dropdown-menu">
-              <li ng-repeat="choice in items">
-                <a class="dropdown-option" ng-hide="isHidden($index)" ng-disabled="isDisabled($index)"
-                   ng-href="{{choice.url}}" ng-click="doClick($index)">{{choice.text}}</a>
-              </li>
-            </ul>
-          </li>
+          <model-controller-dropdown />
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <% if(filters.auth) { %>
