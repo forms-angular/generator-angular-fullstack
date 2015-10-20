@@ -1,6 +1,8 @@
 'use strict';
 var path = require('path');
 var fs = require('fs');
+var __ = require('underscore');
+var _ = require('underscore.string');
 
 module.exports = {
   rewrite: rewrite,
@@ -71,7 +73,7 @@ function appName (self) {
   if (counter === 0 || (typeof suffix === 'boolean' && suffix)) {
     suffix = 'App';
   }
-  return suffix ? self._.classify(suffix) : '';
+  return suffix ? _.classify(suffix) : '';
 }
 
 function filterFile (template) {
@@ -94,7 +96,7 @@ function templateIsUsable (self, filteredFile) {
   for(var key in filters) {
     if(filters[key]) enabledFilters.push(key);
   }
-  var matchedFilters = self._.intersection(filteredFile.filters, enabledFilters);
+  var matchedFilters = __.intersection(filteredFile.filters, enabledFilters);
   // check that all filters on file are matched
   if(filteredFile.filters.length && matchedFilters.length !== filteredFile.filters.length) {
     return false;

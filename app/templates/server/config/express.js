@@ -41,7 +41,7 @@ module.exports = function(app) {
     saveUninitialized: true,
     store: new mongoStore({
       mongooseConnection: mongoose.connection,
-      db: '<%= _.slugify(_.humanize(appname)) %>'
+      db: '<%= appname %>'
     })
   }));
   <% } %>

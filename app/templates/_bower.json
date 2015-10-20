@@ -1,23 +1,20 @@
 {
-  "name": "<%= _.slugify(_.humanize(appname)) %>",
+  "name": "<%= _s.slugify(_s.humanize(appname)) %>",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "^1.3",
-    "json3": "~3.3.1",
+    "json3": "3.3.2",
     "forms-angular": "^0.5.1",
-    "angular-ui-bootstrap-bower": <% if(filters.bs3) { %>"^0.13.0"<% } %><% if(filters.bs2) { %>"~0.8.0"<% } %>,
-    "angular-sanitize": "^1.3",
-    "underscore": "1.8.2",<% if(filters.bootstrap) { %><% if (filters.sass) { %>
-    "bootstrap-sass-official": "~3.1.1",<% } %>
-    "bootstrap": "~3.1.1",<% } %>
-    "angular-resource": "^1.3",
-    "angular-cookies": "^1.3",<% if(filters.ngroute) { %>
-    "angular-route": "^1.3",<% } %><% if(filters.uibootstrap) { %>
-    "angular-bootstrap": "~0.11.0",<% } %>
+    "angular-ui-bootstrap-bower": <% if(filters.bs3) { %>"^0.13.0"<% } %><% if(filters.bs2) { %>"~0.8.0"<% } %>,<% if(filters.bootstrap) { %><% if (filters.sass) { %>
+    "bootstrap-sass-official": "~3.3.5",<% } %>
+    "bootstrap": "~3.3.5",<% } %>
+    "angular-resource": "^1",
+    "angular-cookies": "^1",<% if(filters.ngroute) { %>
+    "angular-route": "^1",<% } %><% if(filters.uibootstrap) { %>
+    "angular-bootstrap": "~0.14.2",<% } %>
     "font-awesome": ">=4.1.0",
-    "lodash": "~2.4.1"<% if(filters.socketio) { %>,
-    "angular-socket-io": "~0.6.0"<% } %><% if(filters.uirouter) { %>,
-    "angular-ui-router": "~0.2.10"<% } %><% if (filters.uiDate) { %>,
+    "lodash": "3.10.1"<% if(filters.socketio) { %>,
+    "angular-socket-io": "0.7.0"<% } %><% if(filters.uirouter) { %>,
+    "angular-ui-router": "0.2.15"<% } %><% if (filters.uiDate) { %>,
     "fng-ui-date": "*"<% } %><% if (filters.jqUpload) { %>,
     "fng-jq-upload": "*"<% } %><% if (filters.reports) { %>,
     "fng-reports": "*"<% } %><% if (filters.ckeditor) { %>,
@@ -27,7 +24,7 @@
     "fng-ui-select": "*"<% } %>
   },
   "devDependencies": {
-    "angular-mocks": "^1.3"
+    "angular-mocks": "1.4"
   },
   "testPath": "test/client/spec"
 }

@@ -9,7 +9,7 @@
           <span class="glyphicon glyphicon-bar icon-bar"></span>
         </button>
         <a class="navbar-brandpluslogo brandpluslogo" href="/">
-          <a href="/" class="navbar-brand brand"><%= _.slugify(_.humanize(appname)) %></a>
+          <a href="/" class="navbar-brand brand"><%= _s.slugify(_s.humanize(appname)) %></a>
         </a>
         <global-search <% if(filters.auth) { %>ng-show="isLoggedIn()" <% } %>class="global-search"></global-search>
       </div>

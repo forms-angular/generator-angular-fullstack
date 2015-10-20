@@ -6,6 +6,8 @@ var genUtils = require('../util.js');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var wiredep = require('wiredep');
+var __ = require('underscore');
+var _ = require('underscore.string');
 
 var pluginChoices = [{
   name: 'jQuery UI date picker',
@@ -48,9 +50,10 @@ var pluginChoices = [{
 var AngularFullstackGenerator = yeoman.generators.Base.extend({
 
   init: function () {
+    this._s = _;
     this.argument('name', { type: String, required: false });
     this.appname = this.name || path.basename(process.cwd());
-    this.appname = this._.camelize(this._.slugify(this._.humanize(this.appname)));
+    this.appname = _.camelize(_.slugify(_.humanize(this.appname)));
 
     this.option('app-suffix', {
       desc: 'Allow a custom suffix to be added to the module name',
@@ -164,7 +167,7 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         this.filters.css = true;
         this.filters[answers.router] = true;
         answers.plugins.forEach(function(chosenPlugin) {
-          var thisPlugin = this._.find(pluginChoices, function(choice) {
+          var thisPlugin = __.find(pluginChoices, function(choice) {
             return (choice.value == chosenPlugin);
           });
           if (!thisPlugin) { throw new Error("Plugin inconsistency"); }
