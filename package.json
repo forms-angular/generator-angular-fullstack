@@ -1,6 +1,6 @@
 {
   "name": "generator-fng",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "Generate forms-angular applications for the MEAN stack",
   "keywords": [
     "yeoman-generator",
@@ -38,7 +38,9 @@
     "yeoman-generator": "0.20.3",
     "chalk": "1.1.1",
     "wiredep": "2.2.2",
-    "generator-ng-component": "0.1.1"
+    "generator-ng-component": "0.1.1",
+    "underscore": "1.8.3",
+    "underscore.string": "3.2.2"
   },
   "peerDependencies": {
     "yo": ">=1.2.0"
@@ -58,8 +60,7 @@
     "mocha": "2.3.3",
     "q": "1.4.1",
     "semver": "5.0.3",
-    "shelljs": "0.5.3",
-    "underscore.string": "3.2.2"
+    "shelljs": "0.5.3"
   },
   "engines": {
     "node": ">=0.10.0",
