@@ -67,7 +67,8 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
   },
 
   info: function () {
-    this.log(this.yeoman);
+    this.log('Forms-Angular Generator');
+    this.log('=======================');
     this.log(
       'Out of the box I include Bootstrap, Mongoose and some AngularJS recommended modules.\n'
     );
@@ -319,7 +320,8 @@ var AngularFullstackGenerator = yeoman.generators.Base.extend({
         angModules.push(plugin.dep);
     }.bind(this));
 
-    this.angularModules = "\n  " + angModules.join(",\n  ") +"\n";
+    this.angularModules = '\n  ' + angModules.join(',\n  ') +'\n';
+this.log(this.angularModules);
   },
 
   generate: function() {
