@@ -13,14 +13,14 @@
         </a>
         <global-search <% if(filters.auth) { %>ng-show="isLoggedIn()" <% } %>class="global-search"></global-search>
       </div>
-      <div collapse="isCollapsed" class="navbar-collapse nav-collapse collapse" id="navbar-main">
+      <div uib-collapse="isCollapsed" class="navbar-collapse nav-collapse collapse" id="navbar-main">
         <ul class="nav navbar-nav">
           <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
             <a ng-href="{{item.link}}">{{item.title}}</a>
           </li>
-          <li <% if(filters.auth) { %>ng-show="isLoggedIn()" <% } %>dropdown class="dropdown">
-            <a dropdown-toggle class="dropdown-toggle">Applicants</a>
-            <ul class="dropdown-menu">
+          <li <% if(filters.auth) { %>ng-show="isLoggedIn()" <% } %>uib-dropdown class="dropdown">
+            <a uib-dropdown-toggle class="dropdown-toggle">Applicants</a>
+            <ul class="uib-dropdown-menu">
               <li><a class="dropdown-option" href="data/Applicant/new">New</a></li>
               <li><a class="dropdown-option" href="data/Applicant">Listing</a></li>
               <% if(filters.reports) { %><li><a class="dropdown-option" href="data/analyse/Applicant">Basic Report</a></li><% } %>
