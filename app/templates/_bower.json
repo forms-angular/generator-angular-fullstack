@@ -3,14 +3,14 @@
   "version": "0.0.0",
   "dependencies": {
     "json3": "3.3.2",
-    "forms-angular": "^0.5.1",
-    "angular-ui-bootstrap-bower": <% if(filters.bs3) { %>"^0.13.0"<% } %><% if(filters.bs2) { %>"~0.8.0"<% } %>,<% if(filters.bootstrap) { %><% if (filters.sass) { %>
+    "forms-angular": "^0.6.0",
+    "angular-ui-bootstrap-bower": <% if(filters.bs3) { %>"^0.14.3"<% } %><% if(filters.bs2) { %>"~0.8.0"<% } %>,<% if(filters.bootstrap) { %><% if (filters.sass) { %>
     "bootstrap-sass-official": "~3.3.5",<% } %>
     "bootstrap": "~3.3.5",<% } %>
     "angular-resource": "^1",
     "angular-cookies": "^1",<% if(filters.ngroute) { %>
     "angular-route": "^1",<% } %><% if(filters.uibootstrap) { %>
-    "angular-bootstrap": "~0.14.2",<% } %>
+    "angular-bootstrap": "~0.14.3",<% } %>
     "font-awesome": ">=4.1.0",
     "lodash": "3.10.1"<% if(filters.socketio) { %>,
     "angular-socket-io": "0.7.0"<% } %><% if(filters.uirouter) { %>,
@@ -24,7 +24,7 @@
     "fng-ui-select": "*"<% } %>
   },
   "devDependencies": {
-    "angular-mocks": "1.4"
+    "angular-mocks": "^1.4"
   },
   "testPath": "test/client/spec"
 }

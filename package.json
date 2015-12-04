@@ -1,6 +1,6 @@
 {
   "name": "generator-fng",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "Generate forms-angular applications for the MEAN stack",
   "keywords": [
     "yeoman-generator",
@@ -9,6 +9,7 @@
     "angularjs",
     "express",
     "scaffold",
+    "mongoose",
     "forms",
     "forms-angular",
     "fullstack",
