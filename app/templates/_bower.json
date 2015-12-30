@@ -25,6 +25,14 @@
   },
   "devDependencies": {
     "angular-mocks": "^1.4"
-  },
+  },<% if (filters.jqUpload) { %>
+  "overrides":{
+    "blueimp-load-image":{
+      "main":"js/load-image.all.min.js"
+    },
+    "blueimp-gallery":{
+      "main":["js/jquery.blueimp-gallery.min.js","css/blueimp-gallery.css"]
+    }
+  },<% } %>
   "testPath": "test/client/spec"
 }
