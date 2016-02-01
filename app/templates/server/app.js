@@ -40,7 +40,7 @@ require('./config/express')(app);
 require('./routes')(app);
 
 var DataFormHandler = new (formsAngular)(app, {
-  urlPrefix: '/api/' <% if(filters.jqUpload) { %>, JQMongoFileUploader: {} <% } %><% if(filters.auth) { %> , authentication: auth.isAuthenticated()<% } %>
+  urlPrefix: '/api/' <% if(filters.jqUpload) { %>, JQMongoFileUploader: {module:require('fng-jq-upload').Controller} <% } %><% if(filters.auth) { %> , authentication: auth.isAuthenticated()<% } %>
 });
 
   var modelsPath = path.join(__dirname, 'forms-angular-models');
