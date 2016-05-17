@@ -1,5 +1,8 @@
 Check http://github.com/DaftMonk/generator-angular-fullstack for the upstream changes
 
+<a name="v0.2.15"></a>
+### 0.2.15 (2016-05-17)
+
 <a name="v0.2.13"></a>
 ### v0.2.13 (2015-12-30)   (upstream - v2.1.1  e9d3a3e34268519f6992f285112f0edc8284dbb1)
 * Added blueimp overrides in _bower.json
