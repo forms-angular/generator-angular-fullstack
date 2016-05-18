@@ -20,8 +20,8 @@
           </li>
           <li <% if(filters.auth) { %>ng-show="isLoggedIn()" <% } %>uib-dropdown class="dropdown">
             <a uib-dropdown-toggle class="dropdown-toggle">Applicants</a>
-            <ul class="uib-dropdown-menu">
-              <li><a class="dropdown-option" href="data/Applicant/new">New</a></li>
+            <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+            <li><a class="dropdown-option" href="data/Applicant/new">New</a></li>
               <li><a class="dropdown-option" href="data/Applicant">Listing</a></li>
               <% if(filters.reports) { %><li><a class="dropdown-option" href="data/analyse/Applicant">Basic Report</a></li><% } %>
             </ul>
