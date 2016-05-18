@@ -4,7 +4,7 @@
   "dependencies": {
     "json3": "3.3.2",
     "forms-angular": "^0.7.0-beta.1",
-    "angular-ui-bootstrap-bower": <% if(filters.bs3) { %>"^0.14.3"<% } %><% if(filters.bs2) { %>"~0.8.0"<% } %>,<% if(filters.bootstrap) { %><% if (filters.sass) { %>
+    "angular-ui-bootstrap-bower": <% if(filters.bs3) { %>"^1.3.2"<% } %><% if(filters.bs2) { %>"~0.8.0"<% } %>,<% if(filters.bootstrap) { %><% if (filters.sass) { %>
     "bootstrap-sass-official": "~3.3.5",<% } %>
     "bootstrap": "~3.3.5",<% } %>
     "angular-resource": "^1",
@@ -34,5 +34,8 @@
       "main":["js/jquery.blueimp-gallery.min.js","css/blueimp-gallery.css"]
     }
   },<% } %>
+  "resolutions": {
+    "angular": "1.5.5"
+  },
   "testPath": "test/client/spec"
 }
