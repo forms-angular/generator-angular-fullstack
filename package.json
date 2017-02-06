@@ -41,10 +41,8 @@
     "wiredep": "3.0.0",
     "generator-ng-component": "0.1.1",
     "underscore": "1.8.3",
-    "underscore.string": "3.2.3"
-  },
-  "peerDependencies": {
-    "yo": ">=1.2.0"
+    "underscore.string": "3.2.3",
+    "yo": "1.8.5"
   },
   "devDependencies": {
     "chai": "3.5.0",
