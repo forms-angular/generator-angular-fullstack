@@ -39,7 +39,7 @@ require('./config/socketio')(socketio);<% } %>
 require('./config/express')(app);
 require('./routes')(app);
 
-var DataFormHandler = new (formsAngular)(app, {
+var DataFormHandler = new (formsAngular)(mongoose, app, {
   urlPrefix: '/api/' <% if(filters.jqUpload) { %>, JQMongoFileUploader: {module:require('fng-jq-upload').Controller} <% } %><% if(filters.auth) { %> , authentication: auth.isAuthenticated()<% } %>
 });
 

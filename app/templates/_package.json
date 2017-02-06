@@ -10,13 +10,13 @@
     "serve-favicon": "2.3.0",
     "cookie-parser": "1.4.0",
     "express-session": "1.11.3",
-    "forms-angular": "^0.8.0",
+    "forms-angular": "^0.8.1",
     "errorhandler": "1.4.2",
     "compression": "1.6.0",
     "lodash": "3.10.1",<% if (filters.jqUpload) { %>
     "fng-jq-upload": "latest",<% } %><% if(filters.html) { %>
     "ejs": "2.3.4",<% } %><% if(filters.mongoose) { %>
-    "mongoose": "4.1.11",<% } %><% if(filters.auth) { %>
+    "mongoose": "4.8.1",<% } %><% if(filters.auth) { %>
     "jsonwebtoken": "5.4.0",
     "express-jwt": "3.1.0",
     "passport": "0.3.0",
@@ -25,7 +25,7 @@
     "passport-twitter": "latest",<% } %><% if(filters.googleAuth) { %>
     "passport-google-oauth": "latest",<% } %>
     "composable-middleware": "0.3.0",
-    "connect-mongo": "0.8.2"<% if(filters.socketio) { %>,
+    "connect-mongo": "1.3.2"<% if(filters.socketio) { %>,
     "socket.io": "1.3.7",
     "socket.io-client": "1.3.7",
     "socketio-jwt": "4.3.2"<% } %>
