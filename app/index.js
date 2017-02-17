@@ -18,7 +18,7 @@ var pluginChoices = [{
 },{
   name: 'Columnar reporting',
   value: 'reports',
-  dep: '\'ngGrid\'',
+  dep: '\'ui.grid\'',
   jQueryUI: false,
   checked: true
 },{
@@ -29,13 +29,8 @@ var pluginChoices = [{
   checked: true
 },{
   name: 'Enhanced select control',
-  value : 'select2',
-  dep: '\'ui.select2\'',
-
-  // After ui-select is published, then
-  // value: 'uiSelect',
-  // dep:  '\'fng.uiSelect\'',
-
+  value: 'uiSelect',
+  dep:  '\'fng.uiSelect\'',
   jQueryUI: false,
   checked: true
 },{

@@ -29,14 +29,14 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 
 **Client**
 
-* Scripts: `JavaScript`, `CoffeeScript`
-* Markup:  `HTML`, `Jade`
-* Stylesheets: `CSS`, `Stylus`, `Sass`, `Less`,
+* Scripts: `JavaScript`
+* Markup:  `HTML`
+* Stylesheets: `CSS`
 * Angular Routers: `ngRoute`, `ui-router`
 
 **Server**
 
-* Database: `None`, `MongoDB`
+* Database: `MongoDB`
 * Authentication boilerplate: `Yes`, `No`
 * oAuth integrations: `Facebook` `Twitter` `Google`
 * Socket.io integration: `Yes`, `No`
@@ -45,12 +45,8 @@ Run `grunt` for building, `grunt serve` for preview, and `grunt serve:dist` for 
 
 A grunt task looks for new files in your `client/app` and `client/components` folder and automatically injects them in the appropriate places based on an injection block.
 
-* `less` files into `client/app.less`
-* `scss` files into `client/app.scss`
-* `stylus` files into `client/app.styl`
 * `css` files into `client/index.html`
 * `js` files into `client/index.html`
-* `coffeescript` temp `js` files into `client/index.html`
 
 ## Generators
 
@@ -74,7 +70,7 @@ Available generators:
     - [fng:heroku](#heroku)
 
 ### App
-Sets up a new AngularJS + Express app, generating all the boilerplate you need to get started.
+Sets up a new forms-angular, AngularJS + Express app, generating all the boilerplate you need to get started.
 
 Example:
 ```bash

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "json3": "3.3.2",
-    "forms-angular": "^0.8.1",
+    "forms-angular": "^0.9.0",
     "angular-ui-bootstrap-bower": <% if(filters.bs3) { %>"^1.3.2"<% } %><% if(filters.bs2) { %>"~0.8.0"<% } %>,<% if(filters.bootstrap) { %><% if (filters.sass) { %>
     "bootstrap-sass-official": "~3.3.5",<% } %>
     "bootstrap": "~3.3.5",<% } %>
@@ -19,12 +19,11 @@
     "fng-jq-upload": "*"<% } %><% if (filters.reports) { %>,
     "fng-reports": "*"<% } %><% if (filters.ckeditor) { %>,
     "ng-ckeditor": "0.2.1",
-    "ckeditor": "*"<% } %><% if (filters.select2) { %>,
-    "fng-select2": "*"<% } %><% if (filters.uiSelect) { %>,
+    "ckeditor": "*"<% } %><% if (filters.uiSelect) { %>,
     "fng-ui-select": "*"<% } %>
   },
   "devDependencies": {
-    "angular-mocks": "^1.6.1"
+    "angular-mocks": "^1.6.2"
   },<% if (filters.jqUpload) { %>
   "overrides":{
     "blueimp-load-image":{
@@ -35,7 +34,7 @@
     }
   },<% } %>
   "resolutions": {
-    "angular": "1.6.1"
+    "angular": "1.6.2"
   },
   "testPath": "test/client/spec"
 }

@@ -1,5 +1,8 @@
 Check http://github.com/DaftMonk/generator-angular-fullstack for the upstream changes
 
+<a name="v0.2.17"></a>
+### 0.2.17 (2017-02-17)
+
 <a name="v0.2.16"></a>
 ### 0.2.16 (2017-02-06)
 
