@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "json3": "3.3.2",
-    "forms-angular": "^0.9.0",
+    "forms-angular": "^0.11.0",
     "angular-ui-bootstrap-bower": <% if(filters.bs3) { %>"^1.3.2"<% } %><% if(filters.bs2) { %>"~0.8.0"<% } %>,<% if(filters.bootstrap) { %><% if (filters.sass) { %>
     "bootstrap-sass-official": "~3.3.5",<% } %>
     "bootstrap": "~3.3.5",<% } %>
@@ -15,15 +15,15 @@
     "lodash": "3.10.1"<% if(filters.socketio) { %>,
     "angular-socket-io": "0.7.0"<% } %><% if(filters.uirouter) { %>,
     "angular-ui-router": "0.2.15"<% } %><% if (filters.uiDate) { %>,
-    "fng-ui-date": "*"<% } %><% if (filters.jqUpload) { %>,
-    "fng-jq-upload": "*"<% } %><% if (filters.reports) { %>,
-    "fng-reports": "*"<% } %><% if (filters.ckeditor) { %>,
+    "fng-ui-date": "0.11.0"<% } %><% if (filters.jqUpload) { %>,
+    "fng-jq-upload": "0.11.0"<% } %><% if (filters.reports) { %>,
+    "fng-reports": "0.11.0"<% } %><% if (filters.ckeditor) { %>,
     "ng-ckeditor": "0.2.1",
     "ckeditor": "*"<% } %><% if (filters.uiSelect) { %>,
-    "fng-ui-select": "*"<% } %>
+    "fng-ui-select": "0.11.0"<% } %>
   },
   "devDependencies": {
-    "angular-mocks": "^1.6.2"
+    "angular-mocks": "^1.6.7"
   },<% if (filters.jqUpload) { %>
   "overrides":{
     "blueimp-load-image":{
@@ -34,7 +34,7 @@
     }
   },<% } %>
   "resolutions": {
-    "angular": "1.6.2"
+    "angular": "1.6.7"
   },
   "testPath": "test/client/spec"
 }

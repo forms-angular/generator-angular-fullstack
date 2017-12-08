@@ -1,6 +1,6 @@
 {
   "name": "generator-fng",
-  "version": "0.2.17",
+  "version": "0.2.18",
   "description": "Generate forms-angular applications for the MEAN stack",
   "keywords": [
     "yeoman-generator",
@@ -21,13 +21,15 @@
   "homepage": "https://github.com/forms-angular/generator-angular-fullstack",
   "bugs": "https://github.com/forms-angular/generator-angular-fullstack/issues",
   "author": "Tyler Henkel",
-  "contributors" : [{
-    "name":"Mark Chapman",
-    "email":"support@forms-angular.org"
-  },
-  {
-    "name":"Gulshan Kumar"
-  }],
+  "contributors": [
+    {
+      "name": "Mark Chapman",
+      "email": "support@forms-angular.org"
+    },
+    {
+      "name": "Gulshan Kumar"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/forms-angular/generator-angular-fullstack.git"

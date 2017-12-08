@@ -3,21 +3,20 @@
   "version": "0.0.0",
   "main": "server/app.js",
   "dependencies": {
-    "express": "4.14.1",
+    "express": "4.16.2",
     "morgan": "1.6.1",
     "body-parser": "1.14.1",
     "method-override": "2.3.5",
     "serve-favicon": "2.3.0",
     "cookie-parser": "1.4.0",
     "express-session": "1.11.3",
-    "forms-angular": "^0.9.0",
+    "forms-angular": "0.11.0",
     "errorhandler": "1.4.2",
     "compression": "1.6.0",
     "lodash": "3.10.1",<% if (filters.jqUpload) { %>
-    "fng-jq-upload": "latest",<% } %><% if(filters.html) { %>
+    "fng-jq-upload": "0.11.0",<% } %><% if(filters.html) { %>
     "ejs": "2.3.4",<% } %><% if(filters.mongoose) { %>
-    "mongoose": "4.8.1",
-    "kerberos": "0.0.22",<% } %><% if(filters.auth) { %>
+    "mongoose": "4.13.3",<% } %><% if(filters.auth) { %>
     "jsonwebtoken": "5.4.0",
     "express-jwt": "3.1.0",
     "passport": "0.3.0",
@@ -52,8 +51,6 @@
     "grunt-svgmin": "2.0.1",
     "grunt-usemin": "3.1.1",
     "grunt-env": "0.4.4",
-    "grunt-node-inspector": "0.4.1",
-    "grunt-nodemon": "0.4.0",
     "grunt-angular-templates": "0.5.7",
     "grunt-dom-munger": "3.4.0",
     "grunt-protractor-runner": "2.1.0",
@@ -63,7 +60,7 @@
     "grunt-mocha-test": "0.12.7",
     "jit-grunt": "0.9.1",
     "time-grunt": "1.2.1",
-    "grunt-express-server": "0.5.1",
+    "grunt-express-server": "git://github.com/gintsgints/grunt-express-server#master",
     "grunt-open": "0.2.3",
     "open": "0.0.5",
     "jshint-stylish": "2.0.1",
