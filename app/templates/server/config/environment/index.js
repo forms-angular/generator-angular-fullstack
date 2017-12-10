@@ -38,9 +38,7 @@ var all = {
   // MongoDB connection options
   mongo: {
     options: {
-      db: {
-        safe: true
-      }
+      useMongoClient: true
     }
   },
 <% if(filters.facebookAuth) { %>

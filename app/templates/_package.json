@@ -10,11 +10,11 @@
     "serve-favicon": "2.3.0",
     "cookie-parser": "1.4.0",
     "express-session": "1.11.3",
-    "forms-angular": "0.11.0",
+    "forms-angular": "0.11.x",
     "errorhandler": "1.4.2",
     "compression": "1.6.0",
     "lodash": "3.10.1",<% if (filters.jqUpload) { %>
-    "fng-jq-upload": "0.11.0",<% } %><% if(filters.html) { %>
+    "fng-jq-upload": "0.11.x",<% } %><% if(filters.html) { %>
     "ejs": "2.3.4",<% } %><% if(filters.mongoose) { %>
     "mongoose": "4.13.3",<% } %><% if(filters.auth) { %>
     "jsonwebtoken": "5.4.0",

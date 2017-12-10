@@ -7,8 +7,8 @@
 // Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-var express = require('express');<% if (filters.mongoose) { %>
-var mongoose = require('mongoose');<% } %>
+var express = require('express');
+var mongoose = require('mongoose');
 var fs = require('fs');
 var path = require('path');
 var formsAngular = require('forms-angular');
@@ -17,7 +17,6 @@ var config = require('./config/environment');
 <% if(filters.auth) { %>
   var auth = require('./auth/auth.service');
 <% } %>
-<% if (filters.mongoose) { %>
 // Connect to database
 mongoose.connect(config.mongo.uri, config.mongo.options);
 mongoose.connection.on('error', function(err) {
@@ -28,7 +27,7 @@ mongoose.connection.on('error', function(err) {
 // Populate DB with sample data
 if(config.seedDB) { require('./config/seed'); }
 
-<% } %>// Setup server
+// Setup server
 var app = express();
 var server = require('http').createServer(app);<% if (filters.socketio) { %>
 var socketio = require('socket.io')(server, {
@@ -39,8 +38,13 @@ require('./config/socketio')(socketio);<% } %>
 require('./config/express')(app);
 require('./routes')(app);
 
+
 var DataFormHandler = new (formsAngular)(mongoose, app, {
-  urlPrefix: '/api/' <% if(filters.jqUpload) { %>, JQMongoFileUploader: {module:require('fng-jq-upload').Controller} <% } %><% if(filters.auth) { %> , authentication: auth.isAuthenticated()<% } %>
+  urlPrefix: '/api/',
+  <% if(filters.jqUpload) { %>plugins: {
+    JQMongoFileUploader: { plugin: require('fng-jq-upload').Controller <% if(filters.auth) { %>, options: { inhibitAuthentication: true} <% } %>}
+  }<% } %><% if(filters.auth) { %> ,
+  authentication: auth.isAuthenticated()<% } %>
 });
 
   var modelsPath = path.join(__dirname, 'forms-angular-models');

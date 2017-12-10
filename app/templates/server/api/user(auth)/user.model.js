@@ -78,17 +78,20 @@ UserSchema
 // Validate email is not taken
 UserSchema
   .path('email')
-  .validate(function(value, respond) {
-    var self = this;
-    this.constructor.findOne({email: value}, function(err, user) {
-      if(err) throw err;
-      if(user) {
-        if(self.id === user.id) return respond(true);
-        return respond(false);
-      }
-      respond(true);
-    });
-}, 'The specified email address is already in use.');
+  .validate({
+    isAsync: true,
+    validator: function (value, respond) {
+      var self = this;
+      this.constructor.findOne({email: value}, function (err, user) {
+        if (err) throw err;
+        if (user) {
+          if (self.id === user.id) return respond(true);
+          return respond(false, 'The specified email address is already in use.');
+        }
+        respond(true);
+      })
+    }
+  });
 
 var validatePresenceOf = function(value) {
   return value && value.length;
@@ -142,7 +145,7 @@ UserSchema.methods = {
   encryptPassword: function(password) {
     if (!password || !this.salt) return '';
     var salt = new Buffer(this.salt, 'base64');
-    return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
+    return crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha512').toString('base64');
   }
 };
 
