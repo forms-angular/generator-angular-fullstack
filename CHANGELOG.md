@@ -1,5 +1,9 @@
 Check http://github.com/DaftMonk/generator-angular-fullstack for the upstream changes
 
+<a name="v0.2.22"></a>
+### 0.2.22 (2017-12-11)
+* Gets rid of deprecation message
+
 <a name="v0.2.21"></a>
 ### 0.2.21 (2017-12-10)
 * Support for Node 8
