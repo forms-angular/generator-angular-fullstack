@@ -1,5 +1,9 @@
 Check http://github.com/DaftMonk/generator-angular-fullstack for the upstream changes
 
+<a name="v0.2.23"></a>
+### 0.2.23 (2018-02-02)
+* Adds missing dependency for reports
+
 <a name="v0.2.22"></a>
 ### 0.2.22 (2017-12-11)
 * Gets rid of deprecation message
