@@ -18,7 +18,7 @@ var pluginChoices = [{
 },{
   name: 'Columnar reporting',
   value: 'reports',
-  dep: '\'ui.grid\'',
+  dep: '\'ui.grid\',\n  \'ui.grid.selection\'',
   jQueryUI: false,
   checked: true
 },{
